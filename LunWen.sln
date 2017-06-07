@@ -3,8 +3,52 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Infrastructure", "01-Infrastructure", "{E3BD5EE6-4265-4846-AE74-E3841FBFFA44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Repository", "02-Repository", "{96DF297F-076D-4CFD-8BF5-8BDF75FFE98B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Service", "03-Service", "{4F384018-80FE-4823-8D74-D2BD4D42F2D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Web", "04-Web", "{BDA153EA-CFEE-42F5-857D-B5610E5183E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunWen.Infrastructure", "LunWen.Infrastructure\LunWen.Infrastructure.csproj", "{50C7CDE9-4E3D-4712-91BA-CB5A18406130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunWen.Repository", "LunWen.Repository\LunWen.Repository.csproj", "{4541FA5B-5B1D-48DE-ABDD-ECAE3771A888}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunWen.Service", "LunWen.Service\LunWen.Service.csproj", "{6F79A302-185E-479F-8A76-590F4F03FA1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunWen.Web", "LunWen.Web\LunWen.Web.csproj", "{9C4D47E5-C58B-4399-B695-F71D0DBAE1C6}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50C7CDE9-4E3D-4712-91BA-CB5A18406130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C7CDE9-4E3D-4712-91BA-CB5A18406130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C7CDE9-4E3D-4712-91BA-CB5A18406130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C7CDE9-4E3D-4712-91BA-CB5A18406130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4541FA5B-5B1D-48DE-ABDD-ECAE3771A888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4541FA5B-5B1D-48DE-ABDD-ECAE3771A888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4541FA5B-5B1D-48DE-ABDD-ECAE3771A888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4541FA5B-5B1D-48DE-ABDD-ECAE3771A888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F79A302-185E-479F-8A76-590F4F03FA1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F79A302-185E-479F-8A76-590F4F03FA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F79A302-185E-479F-8A76-590F4F03FA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F79A302-185E-479F-8A76-590F4F03FA1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C4D47E5-C58B-4399-B695-F71D0DBAE1C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C4D47E5-C58B-4399-B695-F71D0DBAE1C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C4D47E5-C58B-4399-B695-F71D0DBAE1C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C4D47E5-C58B-4399-B695-F71D0DBAE1C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50C7CDE9-4E3D-4712-91BA-CB5A18406130} = {E3BD5EE6-4265-4846-AE74-E3841FBFFA44}
+		{4541FA5B-5B1D-48DE-ABDD-ECAE3771A888} = {96DF297F-076D-4CFD-8BF5-8BDF75FFE98B}
+		{6F79A302-185E-479F-8A76-590F4F03FA1C} = {4F384018-80FE-4823-8D74-D2BD4D42F2D3}
+		{9C4D47E5-C58B-4399-B695-F71D0DBAE1C6} = {BDA153EA-CFEE-42F5-857D-B5610E5183E4}
 	EndGlobalSection
 EndGlobal
