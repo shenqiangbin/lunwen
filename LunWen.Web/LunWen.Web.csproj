@@ -103,6 +103,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Sql\InitData.sql" />
+    <Content Include="Sql\InitDB.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
