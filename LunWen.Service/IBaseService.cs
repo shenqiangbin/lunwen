@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace LunWen.Service
 {
-    public class Class1
+    public interface IBaseService
     {
+        int Add<T>(T model);
+        void Remove<T>(T model);
+        void Save<T>(T model);
     }
 }

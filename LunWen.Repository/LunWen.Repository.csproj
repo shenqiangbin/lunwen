@@ -53,12 +53,18 @@
     <Compile Include="baseDAO\IBaseRepository.cs" />
     <Compile Include="baseDAO\IBaseService.cs" />
     <Compile Include="baseDAO\MySqlBaseRepository.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LunWen.Model\LunWen.Model.csproj">
+      <Project>{9109494d-2e7a-4011-b27d-cba4c185e023}</Project>
+      <Name>LunWen.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
