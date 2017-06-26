@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
+using LunWen.Web.Filters;
 
 namespace LunWen.Web
 {
@@ -17,7 +18,9 @@ namespace LunWen.Web
             // Code that runs on application startup
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            GlobalFilters.Filters.Add(new ExcepitonFilter());
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LunWen.Infrastructure
 {
-    public class Class1
+    class Class1
     {
     }
 }
