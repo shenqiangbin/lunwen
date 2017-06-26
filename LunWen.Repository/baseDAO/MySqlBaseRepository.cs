@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using System.Configuration;
 
 namespace LunWen.Repository.baseDAO
 {
@@ -98,6 +99,26 @@ namespace LunWen.Repository.baseDAO
             return models;
         }
 
+        public bool ExeTransaction(string sql)
+        {
+            var conn = GetConn();
+            conn.Open();
+
+            var tran = conn.BeginTransaction();
+            try
+            {
+                conn.Execute(sql);
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LunWen.Infrastructure.Logger.Log(ex.Message);
+                tran.Rollback();
+                return false;
+            }
+        }
+
         #region 帮助方法
 
         //Name,Sex,Mail
@@ -161,6 +182,7 @@ namespace LunWen.Repository.baseDAO
         {
             string connStr = "server=192.168.103.90;database=thesismgmt;Uid=thesismgmt;Pwd=123456;";
             connStr = "server=127.0.0.1;database=thesisdb;Uid=root;Pwd=123456;";
+            connStr = ConfigurationManager.ConnectionStrings["connStr"].ToString();
             MySqlConnection conn = new MySqlConnection(connStr);
             return conn;
         }

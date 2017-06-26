@@ -11,8 +11,6 @@ namespace LunWen.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            int j = 0;
-            int result = 10 / j;
             return View();
         }
     }

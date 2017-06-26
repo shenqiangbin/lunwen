@@ -39,6 +39,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,6 +62,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LunWen.Infrastructure\LunWen.Infrastructure.csproj">
+      <Project>{50c7cde9-4e3d-4712-91ba-cb5a18406130}</Project>
+      <Name>LunWen.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LunWen.Model\LunWen.Model.csproj">
       <Project>{9109494d-2e7a-4011-b27d-cba4c185e023}</Project>
       <Name>LunWen.Model</Name>

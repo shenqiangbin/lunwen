@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LunWen.Model;
+using LunWen.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,21 +8,37 @@ using System.Threading.Tasks;
 
 namespace LunWen.Service
 {
-    public class UserService : IBaseService
+    public class UserService
     {
-        public int Add<T>(T model)
+        private UserRepository _userRepository;
+
+        public UserService()
         {
-            throw new NotImplementedException();
+            _userRepository = new UserRepository();
         }
 
-        public void Remove<T>(T model)
+        public int Add(User model)
         {
-            throw new NotImplementedException();
+            return _userRepository.Insert(model);
         }
 
-        public void Save<T>(T model)
+        public void Remove(int id)
         {
-            throw new NotImplementedException();
+            _userRepository.Delete(id);
+        }
+
+        public void Save(UserSaveModel saveModel)
+        {
+            if (!saveModel.Id.HasValue)
+                throw new Exception("id不能为空");
+
+            User model = _userRepository.SelectBy(saveModel.Id.Value);
+            if (model == null)
+                throw new Exception("id不存在");
+
+            saveModel.SetValTo(model);
+
+            _userRepository.Update(model);
         }
     }
 }
