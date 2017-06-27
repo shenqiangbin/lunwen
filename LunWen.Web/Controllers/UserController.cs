@@ -2,6 +2,7 @@
 using LunWen.Model;
 using LunWen.Model.Request;
 using LunWen.Service;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,17 +31,19 @@ namespace LunWen.Web.Controllers
             try
             {
                 QueryResult<UserItem> response = _userService.Get(query);
-                ViewBag.UserResult = response;
 
                 if ((response.List == null || response.List.Count() == 0) && page != 1)
                     return RedirectToAction("index", "user", new { username = username, page = --page });
 
-                //var pageList = new StaticPagedList<News>(response.List, page, itemsPerPage, response.TotalCount);
+                var pageList = new StaticPagedList<UserItem>(response.List, page, itemsPerPage, response.TotalCount);
+                ViewBag.UserResult = pageList;
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
             }
+
+            ViewBag.UserName = username;
 
             return View();
         }
