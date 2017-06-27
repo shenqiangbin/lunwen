@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Model", "04-Model", "{34
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunWen.Model", "LunWen.Model\LunWen.Model.csproj", "{9109494D-2E7A-4011-B27D-CBA4C185E023}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-ConsoleClient", "06-ConsoleClient", "{5BD34D0B-3ABC-4190-9179-4B7AB398EC88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
