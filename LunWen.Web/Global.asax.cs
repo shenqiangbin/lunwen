@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 using LunWen.Web.Filters;
+using LunWen.Web.Common;
 
 namespace LunWen.Web
 {
@@ -21,6 +22,7 @@ namespace LunWen.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             GlobalFilters.Filters.Add(new ExcepitonFilter());
+            AutofacHelper.Inject();
         }
     }
 }
