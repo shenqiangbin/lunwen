@@ -2,3 +2,8 @@ insert user(UserCode,UserName,Password) values('admin','管理员','123456');
 insert user(UserCode,UserName,Password) values('user001','用户001','123456');
 insert user(UserCode,UserName,Password) values('user002','用户002','123456');
 insert user(UserCode,UserName,Password) values('user003','用户003','123456');
+insert user(UserCode,UserName,Password) values('user004','用户004','123456');
+insert user(UserCode,UserName,Password) values('user005','用户005','123456');
+insert user(UserCode,UserName,Password) values('user006','用户006','123456');
+insert user(UserCode,UserName,Password) values('user007','用户007','123456');
+insert user(UserCode,UserName,Password) values('user008','用户008','123456');

@@ -51,8 +51,10 @@
   <ItemGroup>
     <Compile Include="SessionHelper.cs" />
     <Compile Include="CustomLayout.cs" />
+    <Compile Include="Cache\ICache.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SexHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="log4net.dll">

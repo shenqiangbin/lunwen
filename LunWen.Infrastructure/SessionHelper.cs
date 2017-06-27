@@ -39,8 +39,12 @@ namespace LunWen.Infrastructure
         private static IPrincipal GetPrincipal()
         {
             var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-            var ticket = FormsAuthentication.Decrypt(cookie.Value);
-            return new GenericPrincipal(new FormsIdentity(ticket), null);
+            if (cookie != null)
+            {
+                var ticket = FormsAuthentication.Decrypt(cookie.Value);
+                return new GenericPrincipal(new FormsIdentity(ticket), null);
+            }
+            return null;
         }
     }
 }

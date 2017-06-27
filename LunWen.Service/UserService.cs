@@ -1,4 +1,5 @@
 ﻿using LunWen.Model;
+using LunWen.Model.Request;
 using LunWen.Repository;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,11 @@ namespace LunWen.Service
             saveModel.SetValTo(model);
 
             _userRepository.Update(model);
+        }
+
+        public QueryResult<UserItem> Get(UserQuery query)
+        {
+            return _userRepository.Get(query);
         }
     }
 }
