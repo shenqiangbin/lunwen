@@ -30,6 +30,11 @@ namespace LunWen.Infrastructure
             SqlLogger.Log(msg);
             //FileLogger.Log(msg);
         }
+
+        public static void Log(Exception ex)
+        {
+            SqlLogger.Log(ex.Message + ex.StackTrace);
+        }
     }
 
     public class SqlLogger

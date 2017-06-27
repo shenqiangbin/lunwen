@@ -13,6 +13,7 @@ create table User
    Phone		varchar(20) not null default '' comment '手机',
    Email		varchar(50) not null default '' comment '邮箱',
    Sex			int not null default -1 comment '性别：-1：未知，0：男，1：女',
+   Status		int not null default 1 comment '是否删除：1：未删除，0：已删除',
    
    primary key(Id) ,
    unique (UserCode)

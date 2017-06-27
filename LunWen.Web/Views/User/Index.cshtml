@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    var userResult = ViewBag.UserResult as QueryResult<UserItem>;
+}
+
+<h2>用户列表</h2>
+
+@if (userResult != null)
+{
+    foreach (var item in userResult.List)
+    {
+        <div>
+            <p>@item.UserName</p>
+            <p>@item.Phone</p>
+        </div>
+    }
+}
+else
+{
+    <p>没有数据～</p>
+}
+

@@ -37,4 +37,22 @@ namespace LunWen.Model
             model.Sex = Sex != null ? Sex.Value : model.Sex;
         }
     }
+    
+    //列表项时使用
+    public class UserItem
+    {
+        public int Id { get; set; }
+        public string UserCode { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public int Sex { get; set; }
+    }
+
+    //详情时使用
+    public class UserInfo
+    {
+
+    }
 }
