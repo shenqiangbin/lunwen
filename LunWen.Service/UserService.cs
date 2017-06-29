@@ -13,9 +13,9 @@ namespace LunWen.Service
     {
         private UserRepository _userRepository;
 
-        public UserService()
+        public UserService(UserRepository userRepository)
         {
-            _userRepository = new UserRepository();
+            _userRepository = userRepository;
         }
 
         public int Add(User model)

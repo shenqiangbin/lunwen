@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using LunWen.Repository;
+using LunWen.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,12 @@ namespace LunWen.Web.Common
         public static void Inject()
         {
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var serviceAssembly = System.Reflection.Assembly.GetAssembly(typeof(UserService));
+            var repositoryAssembly = System.Reflection.Assembly.GetAssembly(typeof(UserRepository));
 
             var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(assembly).Where(t => IsOk(t)).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(new System.Reflection.Assembly[] { assembly, serviceAssembly, repositoryAssembly })
+                .Where(t => IsOk(t)).InstancePerLifetimeScope();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(builder.Build()));
         }

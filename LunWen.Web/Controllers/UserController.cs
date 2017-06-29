@@ -15,9 +15,9 @@ namespace LunWen.Web.Controllers
     {
         private UserService _userService;
 
-        public UserController()
+        public UserController(UserService userService)
         {
-            _userService = new UserService();
+            _userService = userService;
         }
 
         public ActionResult Index(string username, int page = 1)

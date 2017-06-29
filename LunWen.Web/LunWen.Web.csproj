@@ -182,6 +182,10 @@
       <Project>{9109494d-2e7a-4011-b27d-cba4c185e023}</Project>
       <Name>LunWen.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LunWen.Repository\LunWen.Repository.csproj">
+      <Project>{4541fa5b-5b1d-48de-abdd-ecae3771a888}</Project>
+      <Name>LunWen.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LunWen.Service\LunWen.Service.csproj">
       <Project>{6f79a302-185e-479f-8a76-590f4f03fa1c}</Project>
       <Name>LunWen.Service</Name>
