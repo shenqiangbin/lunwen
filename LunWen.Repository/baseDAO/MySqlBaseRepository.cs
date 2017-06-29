@@ -197,10 +197,17 @@ namespace LunWen.Repository.baseDAO
             return _conn;
         }
 
-        private IEnumerable<Column> GetTableColumns(string tableName)
+        public IEnumerable<Column> GetTableColumns(string tableName)
         {
-            string sql = $"select column_name as ColumnName,column_comment as ColumnComment,data_type as DataType from information_schema.columns where table_name = '{tableName}'";
+            string sql = $"select column_name as ColumnName,column_comment as ColumnComment,data_type as DataType from information_schema.columns where table_schema = '{GetConn().Database}' and table_name = '{tableName}'";
             IEnumerable<Column> list = GetConn().Query<Column>(sql);
+            return list;
+        }
+
+        public IEnumerable<Table> GetTables()
+        {
+            string sql = $"select table_name as TableName,table_comment as TableComment from information_schema.tables where table_schema='{GetConn().Database}' and table_type='base table';";
+            IEnumerable<Table> list = GetConn().Query<Table>(sql);
             return list;
         }
 

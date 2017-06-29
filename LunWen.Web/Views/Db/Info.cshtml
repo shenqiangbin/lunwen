@@ -1,0 +1,22 @@
+﻿@model Dictionary<LunWen.Repository.baseDAO.Table, IEnumerable<LunWen.Repository.baseDAO.Column>>
+
+@{
+    ViewBag.Title = "数据库信息";
+}
+
+
+@foreach (var item in Model)
+{
+    <div>
+        <h4>@(item.Key.TableName + "（" + item.Key.TableComment + "）")</h4>
+        <ul>
+            @foreach (var col in @item.Value)
+            {
+                <li><span style="width:200px;display:inline-block;">@col.ColumnName</span>@(col.ColumnComment.Trim())</li>
+            }
+        </ul>
+
+    </div>
+}
+
+

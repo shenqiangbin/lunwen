@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace LunWen.Web.Controllers
 {
-    public class InitController : Controller
+    public class DbController : Controller
     {
         private SqlService _sqlService;
 
-        public InitController()
+        public DbController()
         {
             _sqlService = new SqlService();
         }
@@ -51,6 +51,12 @@ namespace LunWen.Web.Controllers
             {
                 return Content(ex.Message);
             }
+        }
+
+        public ActionResult Info()
+        {
+            var dbInfo = _sqlService.GetDbInfo();
+            return View(dbInfo);
         }
     }
 }

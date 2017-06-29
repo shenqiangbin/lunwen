@@ -57,4 +57,10 @@ namespace LunWen.Repository.baseDAO
             }
         }
     }
+
+    public class Table
+    {
+        public string TableName { get; set; }
+        public string TableComment { get; set; }
+    }
 }
