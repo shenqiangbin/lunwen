@@ -10,6 +10,7 @@ using System.Web.Http;
 using LunWen.Web.Filters;
 using LunWen.Infrastructure;
 using LunWen.Web.Common;
+using System.Web.Optimization;
 
 namespace LunWen.Web
 {
@@ -21,6 +22,7 @@ namespace LunWen.Web
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             GlobalFilters.Filters.Add(new ExcepitonFilter());
             AutofacHelper.Inject();
