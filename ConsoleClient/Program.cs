@@ -12,7 +12,9 @@ namespace ConsoleClient
     {
         static void Main(string[] args)
         {
-            GetSomePassword();
+            GetRandomStr();
+            //GetSomePassword();
+            Console.ReadKey();
         }
 
         private static void GetSomePassword()
@@ -33,6 +35,15 @@ namespace ConsoleClient
 
             System.IO.File.WriteAllText("d:/pwd.txt",builder.ToString());
             Process.Start("d:/pwd.txt");
+        }
+
+
+        private static void GetRandomStr()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Replace("=",""));
+            }            
         }
     }
 }
