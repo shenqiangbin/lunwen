@@ -148,6 +148,7 @@
     <Content Include="Scripts\Rsa\RSAClient.js" />
     <Content Include="Sql\InitData.sql" />
     <Content Include="Sql\InitDB.sql" />
+    <Content Include="todo.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
