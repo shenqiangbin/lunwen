@@ -5,12 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using LunWen.Infrastructure.Cache;
 using LunWen.Infrastructure;
+using LunWen.Service;
+using LunWen.Model;
 
 namespace LunWen.Web.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        private UserService _userService;
+
+        public HomeController(UserService userService)
+        {
+            _userService = userService;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -20,16 +28,15 @@ namespace LunWen.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(string usercode, string password, string validateCode, string returnUrl)
         {
-
             try
             {
                 ViewBag.UserCode = usercode;
                 ViewBag.Password = password;
                 ValidateIndex(usercode, password, validateCode);
 
-                if (usercode == "admin" && password == "123")
+                if (CheckUser(usercode, password))
                 {
-                   return RedirectToAction("index", "user");
+                    return RedirectToAction("index", "user");
                 }
                 else
                 {
@@ -63,6 +70,18 @@ namespace LunWen.Web.Controllers
                 if (!string.Equals(validateCode, Session["Code"].ToString(), StringComparison.CurrentCultureIgnoreCase))
                     throw new ValidateException(402, "验证码不正确");
             }
+        }
+
+        private bool CheckUser(string usercode, string password)
+        {
+            User user = _userService.GetUserByCode(usercode);
+            if (user == null)
+                return false;
+
+            if (HashHelper.HashMd5(password, user.Salt) != user.Password)
+                return false;
+
+            return true;
         }
     }
 }

@@ -152,7 +152,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\AutofacHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InitController.cs" />
+    <Compile Include="Controllers\DbController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\ExcepitonFilter.cs" />
     <Compile Include="Global.asax.cs">

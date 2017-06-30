@@ -12,6 +12,7 @@ namespace LunWen.Model
         public string UserCode { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string Salt { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public int Sex { get; set; }
@@ -31,13 +32,12 @@ namespace LunWen.Model
         {
             model.UserCode = UserCode != null ? UserCode : model.UserCode;
             model.UserName = UserName != null ? UserName : model.UserName;
-            model.Password = Password != null ? Password : model.Password;
             model.Phone = Phone != null ? Phone : model.Phone;
             model.Email = Email != null ? Email : model.Email;
             model.Sex = Sex != null ? Sex.Value : model.Sex;
         }
     }
-    
+
     //列表项时使用
     public class UserItem
     {
