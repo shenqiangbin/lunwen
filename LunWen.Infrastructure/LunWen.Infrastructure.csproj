@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encrypt\MD5Helper.cs" />
+    <Compile Include="Encrypt\RSAHelper.cs" />
     <Compile Include="SessionHelper.cs" />
     <Compile Include="CustomLayout.cs" />
     <Compile Include="Cache\ICache.cs" />

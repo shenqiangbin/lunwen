@@ -26,13 +26,13 @@ namespace LunWen.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string usercode, string password, string validateCode, string returnUrl)
+        public ActionResult Index(string usercode, string password, string validateCode, string tmpToken, string returnUrl)
         {
             try
             {
                 ViewBag.UserCode = usercode;
                 ViewBag.Password = password;
-                ValidateIndex(usercode, password, validateCode);
+                ValidateIndex(usercode, password, validateCode, tmpToken);
 
                 if (CheckUser(usercode, password))
                 {
@@ -56,8 +56,12 @@ namespace LunWen.Web.Controllers
             return View();
         }
 
-        private void ValidateIndex(string usercode, string password, string validateCode)
+        private void ValidateIndex(string usercode, string password, string validateCode, string tmpToken)
         {
+            var tmpTokenInServer = TempData["TmpToken"];
+            if (tmpTokenInServer == null || tmpTokenInServer.ToString() != tmpToken)
+                throw new ValidateException(403, "页面过期，请刷新");
+
             if (string.IsNullOrEmpty(usercode))
                 throw new ValidateException(400, "登录名不能为空");
             if (string.IsNullOrEmpty(password))
@@ -78,7 +82,9 @@ namespace LunWen.Web.Controllers
             if (user == null)
                 return false;
 
-            if (HashHelper.HashMd5(password, user.Salt) != user.Password)
+            var passwordDecrypt = RSAHelper.Decrypt(password, TempData["RSAKey"].ToString());
+
+            if (HashHelper.HashMd5(passwordDecrypt, user.Salt) != user.Password)
                 return false;
 
             return true;

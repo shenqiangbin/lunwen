@@ -142,6 +142,10 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Rsa\Barrett.js" />
+    <Content Include="Scripts\Rsa\BigInt.js" />
+    <Content Include="Scripts\Rsa\RSA.js" />
+    <Content Include="Scripts\Rsa\RSAClient.js" />
     <Content Include="Sql\InitData.sql" />
     <Content Include="Sql\InitDB.sql" />
     <Content Include="Web.config" />
@@ -153,6 +157,7 @@
     <Compile Include="Common\AutofacHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DbController.cs" />
+    <Compile Include="Controllers\RSAController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\ExcepitonFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -192,6 +197,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\RSA\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LunWen.Infrastructure\LunWen.Infrastructure.csproj">
