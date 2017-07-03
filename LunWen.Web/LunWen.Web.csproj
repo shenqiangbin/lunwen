@@ -160,7 +160,9 @@
     <Compile Include="Controllers\DbController.cs" />
     <Compile Include="Controllers\RSAController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\TimingActionFilter.cs" />
     <Compile Include="Filters\ExcepitonFilter.cs" />
+    <Compile Include="Filters\UserAuthorize.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

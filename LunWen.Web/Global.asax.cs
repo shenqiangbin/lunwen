@@ -25,6 +25,9 @@ namespace LunWen.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             GlobalFilters.Filters.Add(new ExcepitonFilter());
+            GlobalFilters.Filters.Add(new UserAuthorizeAttribute());
+            GlobalFilters.Filters.Add(new TimingActionFilter());
+
             AutofacHelper.Inject();
         }
 

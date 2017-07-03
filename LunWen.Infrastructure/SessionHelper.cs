@@ -11,7 +11,7 @@ namespace LunWen.Infrastructure
 {
     public class SessionHelper
     {
-        public void Store(string ticketName, string userData)
+        public static void Store(string ticketName, string userData)
         {
             DateTime expireTime = DateTime.Now.AddDays(1);
             string cookiePath = GetCookiePath();
@@ -45,6 +45,16 @@ namespace LunWen.Infrastructure
                 return new GenericPrincipal(new FormsIdentity(ticket), null);
             }
             return null;
+        }
+
+        public static void Clear()
+        {
+            if (ContextUser.IsLogined) { 
+                FormsAuthentication.SignOut();
+                var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+                cookie.Expires = DateTime.Now.AddDays(-100);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
         }
     }
 }

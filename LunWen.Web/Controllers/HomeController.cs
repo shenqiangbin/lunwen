@@ -10,6 +10,7 @@ using LunWen.Model;
 
 namespace LunWen.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private UserService _userService;
@@ -18,7 +19,7 @@ namespace LunWen.Web.Controllers
         {
             _userService = userService;
         }
-
+        
         public ActionResult Index()
         {
             return View();
@@ -36,6 +37,7 @@ namespace LunWen.Web.Controllers
 
                 if (CheckUser(usercode, password))
                 {
+                    SessionHelper.Store(usercode, string.Empty);
                     return RedirectToAction("index", "user");
                 }
                 else
@@ -88,6 +90,20 @@ namespace LunWen.Web.Controllers
                 return false;
 
             return true;
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOut()
+        {
+            LunWen.Infrastructure.SessionHelper.Clear();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult UnAuthrize()
+        {
+            return Content("没有访问权限");
         }
     }
 }

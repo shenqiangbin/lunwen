@@ -9,6 +9,7 @@ using System.Text;
 
 namespace LunWen.Web.Controllers
 {
+    [AllowAnonymous]
     public class RSAController : Controller
     {
         public string GetRSAKey()
