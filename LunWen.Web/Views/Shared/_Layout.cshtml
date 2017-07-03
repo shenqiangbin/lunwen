@@ -27,10 +27,10 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    @if (LunWen.Infrastructure.ContextUser.IsLogined)
+                    @if (LunWen.Web.Common.ContextUser.IsLogined)
                     {
                         <li>
-                            <a href="#">@LunWen.Infrastructure.ContextUser.UserCode</a>
+                            <a href="#">@LunWen.Web.Common.ContextUser.UserName</a>
                         </li>
                         <li>
                             <a href="javascript:$('#logOutForm').submit();">退出</a>                            

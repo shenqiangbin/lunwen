@@ -156,6 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\AutofacHelper.cs" />
+    <Compile Include="Common\ContextUser.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DbController.cs" />
     <Compile Include="Controllers\RSAController.cs" />

@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\MemoryCacheAdapter.cs" />
-    <Compile Include="ContextUser.cs" />
     <Compile Include="Encrypt\MD5Helper.cs" />
     <Compile Include="Encrypt\RSAHelper.cs" />
     <Compile Include="SessionHelper.cs" />

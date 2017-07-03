@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Autofac.Integration.Mvc;
+using LunWen.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace LunWen.Infrastructure
+namespace LunWen.Web.Common
 {
     public class ContextUser
     {
@@ -25,6 +27,19 @@ namespace LunWen.Infrastructure
             get
             {
                 return HttpContext.Current.User.Identity.IsAuthenticated;
+            }
+        }
+
+        public static string UserName
+        {
+            get
+            {
+                var userService = AutofacDependencyResolver.Current.GetService(typeof(UserService)) as UserService;
+                var user = userService.GetUserByCode(ContextUser.UserCode);
+                if (user != null)
+                    return user.UserName;
+                else
+                    return "";
             }
         }
     }

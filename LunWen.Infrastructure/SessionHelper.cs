@@ -49,7 +49,7 @@ namespace LunWen.Infrastructure
 
         public static void Clear()
         {
-            if (ContextUser.IsLogined) { 
+            if (HttpContext.Current.User.Identity.IsAuthenticated) { 
                 FormsAuthentication.SignOut();
                 var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
                 cookie.Expires = DateTime.Now.AddDays(-100);
