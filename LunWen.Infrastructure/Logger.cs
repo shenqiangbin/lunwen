@@ -78,4 +78,13 @@ namespace LunWen.Infrastructure
             _log.Error(ex);
         }
     }
+
+    public class TimeLogger
+    {
+        public static void Log(string usercode, string actionUrl, string actionElapsed, string renderElapsed, string paraObj)
+        {
+            ILog _log = LogManager.GetLogger("TimeLogger");
+            _log.Error(new { usercode = usercode, actionUrl = actionUrl, actionElapsed = actionElapsed, renderElapsed = renderElapsed, paraObj = paraObj });
+        }
+    }
 }

@@ -1,7 +1,10 @@
-﻿using System;
+﻿using LunWen.Infrastructure;
+using LunWen.Web.Common;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,8 +12,18 @@ namespace LunWen.Web.Filters
 {
     public class TimingActionFilter : System.Web.Mvc.ActionFilterAttribute
     {
+        private string para;
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            var str = filterContext.HttpContext.Request.HttpMethod;
+
+            StringBuilder builder = new StringBuilder();
+            foreach (var item in filterContext.ActionParameters)
+            {
+                builder.Append(item.Key + ":" + item.Value + ",");
+            }
+            para = builder.ToString();
+
             GetTimer(filterContext, "action").Start();
             base.OnActionExecuting(filterContext);
         }
@@ -34,6 +47,12 @@ namespace LunWen.Web.Filters
                  renderTimer.ElapsedMilliseconds
                  ));
             }
+            TimeLogger.Log(
+                ContextUser.UserCode,
+                filterContext.RouteData.Values["controller"] + "/" + filterContext.RouteData.Values["action"],
+                actionTimer.ElapsedMilliseconds.ToString(),
+                renderTimer.ElapsedMilliseconds.ToString(),
+                para);
             base.OnResultExecuted(filterContext);
         }
         public override void OnResultExecuting(ResultExecutingContext filterContext)

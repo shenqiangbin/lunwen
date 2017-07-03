@@ -1,9 +1,37 @@
 /*
 字段不要有NULL值，可空的话，设置成默认为空字符串即可。
 */
+drop table if exists log;
+CREATE TABLE `log` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `date` datetime DEFAULT NULL,
+          `thread` varchar(45) DEFAULT NULL,
+          `level` varchar(45) DEFAULT NULL,
+          `logger` varchar(45) DEFAULT NULL,
+          `exception` varchar(45) DEFAULT NULL,
+          `message` varchar(4000) DEFAULT NULL,
+          `userid` varchar(45) DEFAULT NULL,
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+
+drop table if exists timelog;
+CREATE TABLE `timelog` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `date` datetime DEFAULT NULL,
+          `thread` varchar(45) DEFAULT NULL,
+          `level` varchar(45) DEFAULT NULL,
+          `logger` varchar(45) DEFAULT NULL,
+          `exception` varchar(45) DEFAULT NULL,
+          `message` varchar(4000) DEFAULT NULL,
+		  `usercode` varchar(100) DEFAULT NULL,
+          `actionUrl` varchar(100) DEFAULT NULL,
+		  `actionElapsed` varchar(100) DEFAULT NULL,
+		  `renderElapsed` varchar(100) DEFAULT NULL,
+		  `paraObj` varchar(2000) DEFAULT NULL,
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 drop table if exists User;
-
 create table User
 (
    Id       	int not null auto_increment comment ' 唯一标识',
