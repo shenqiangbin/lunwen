@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+    IList<Menu> menus = ViewBag.Menus as IList<Menu>;
+    int currentIndex = ViewBag.CurrentIndex;
+}
+
+@if (menus != null && menus.Any())
+{
+    <div class="row clearfix" style="margin-top:10px;">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default" role="navigation">
+                <ul class="nav navbar-nav">
+                    @for (int i = 0; i < menus.Count; i++)
+                    {
+                        var menu = menus[i];
+                            <li class="@(currentIndex == menu.Id ? "active" : "")" style="width:100px;text-align:center;">
+                                <a href="@menu.MenuUrl" title="@menu.MenuName">@menu.MenuName</a>
+                            </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+}

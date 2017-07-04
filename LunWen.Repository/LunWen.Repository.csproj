@@ -54,6 +54,7 @@
     <Compile Include="baseDAO\IBaseRepository.cs" />
     <Compile Include="baseDAO\IBaseService.cs" />
     <Compile Include="baseDAO\MySqlBaseRepository.cs" />
+    <Compile Include="MenuRepository.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

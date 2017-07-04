@@ -42,5 +42,18 @@ namespace LunWen.Web.Common
                     return "";
             }
         }
+
+        public static int RoleId
+        {
+            get
+            {
+                var userService = AutofacDependencyResolver.Current.GetService(typeof(UserService)) as UserService;
+                var user = userService.GetUserByCode(ContextUser.UserCode);
+                if (user != null)
+                    return user.RoleId;
+                else
+                    return -1;
+            }
+        }
     }
 }

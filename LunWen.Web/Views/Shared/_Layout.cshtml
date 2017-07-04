@@ -46,7 +46,11 @@
     </div>
 
     <div class="container body-content">
+
+        @Html.Action("Index", "Nav", new { i = ViewBag.CurrentIndex })
+
         @RenderBody()
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - 学位论文提交系统Demo版本</p>

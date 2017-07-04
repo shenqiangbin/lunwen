@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Menu.cs" />
     <Compile Include="Request\BaseQuery.cs" />
     <Compile Include="Request\UserQuery.cs" />
     <Compile Include="User.cs" />

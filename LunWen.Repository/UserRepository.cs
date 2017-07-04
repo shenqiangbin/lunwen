@@ -68,5 +68,24 @@ where {0} ";
             return para;
         }
 
+        public IEnumerable<UserInfo> GetUserByCode(string userCode)
+        {
+            string sql = @"
+select 
+	user.id,
+    user.usercode,
+    user.UserName,
+    user.phone,
+    user.email,
+    user.sex,
+    userrole.roleid
+    
+ from user
+left join userrole
+on user.id = userrole.userid
+where user.status = 1 and userrole.status = 1 and usercode = @usercode
+";
+            return GetConn().Query<UserInfo>(sql, new { usercode = userCode });
+        }
     }
 }

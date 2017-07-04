@@ -159,6 +159,7 @@
     <Compile Include="Common\ContextUser.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DbController.cs" />
+    <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\RSAController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\TimingActionFilter.cs" />
@@ -191,6 +192,7 @@
     <Content Include="Views\Db\Info.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="verify_code.ashx" />
+    <Content Include="Views\Nav\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

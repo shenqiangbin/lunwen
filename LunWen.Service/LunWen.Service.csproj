@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SqlService.cs" />
+    <Compile Include="MenuService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="IBaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

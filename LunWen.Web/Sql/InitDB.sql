@@ -101,6 +101,7 @@ create table Menu
    Level		int not null comment '级别',
    MenuUrl		varchar(50) not null comment 'URL地址',
    MenuName		nvarchar(50) not null comment '菜单名称',   
+   Sort			int not null comment '排序',
    Status		int not null default 1 comment '是否删除：1：未删除，0：已删除',
    
    primary key(Id)    

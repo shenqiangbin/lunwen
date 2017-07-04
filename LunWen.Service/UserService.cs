@@ -47,12 +47,9 @@ namespace LunWen.Service
             return _userRepository.Get(query);
         }
 
-        public User GetUserByCode(string userCode)
+        public UserInfo GetUserByCode(string userCode)
         {
-            IEnumerable<User> users = _userRepository.SelectBy(new Dictionary<string, string> {
-                {"usercode",userCode },
-                { "status","1"}
-            });
+            IEnumerable<UserInfo> users = _userRepository.GetUserByCode(userCode);
 
             if (users != null && users.Count() > 1)
                 throw new Exception("usercode有重复：" + userCode);

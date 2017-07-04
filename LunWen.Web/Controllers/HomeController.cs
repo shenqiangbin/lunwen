@@ -7,6 +7,7 @@ using LunWen.Infrastructure.Cache;
 using LunWen.Infrastructure;
 using LunWen.Service;
 using LunWen.Model;
+using LunWen.Web.Common;
 
 namespace LunWen.Web.Controllers
 {
@@ -22,13 +23,15 @@ namespace LunWen.Web.Controllers
         
         public ActionResult Index()
         {
+            if (ContextUser.IsLogined)
+                return RedirectToAction("index", "user");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(string usercode, string password, string validateCode, string tmpToken, string returnUrl)
-        {
+        {            
             try
             {
                 ViewBag.UserCode = usercode;
@@ -80,7 +83,7 @@ namespace LunWen.Web.Controllers
 
         private bool CheckUser(string usercode, string password)
         {
-            User user = _userService.GetUserByCode(usercode);
+            var user = _userService.GetUserByCode(usercode);
             if (user == null)
                 return false;
 
