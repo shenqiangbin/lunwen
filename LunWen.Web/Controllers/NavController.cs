@@ -21,11 +21,11 @@ namespace LunWen.Web.Controllers
         public ActionResult Index(int i = 0)
         {
             int roleId = ContextUser.RoleId;
-            IEnumerable<Menu> menus = _menuService.GetMenuByRole(roleId);
-
+            IEnumerable<Menu> menus = _menuService.GetMenuByRole(roleId,0);
+            ViewBag.Menus = menus as IList<Menu>;
             ViewBag.CurrentIndex = i;
 
-            return View();
+            return PartialView();
         }
     }
 }

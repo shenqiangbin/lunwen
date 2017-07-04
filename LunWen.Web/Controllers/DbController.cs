@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace LunWen.Web.Controllers
 {
+    [AllowAnonymous]
     public class DbController : Controller
     {
         private SqlService _sqlService;

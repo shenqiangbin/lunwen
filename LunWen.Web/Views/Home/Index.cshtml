@@ -36,7 +36,7 @@
                     <img alt="刷新验证码！" src="~/verify_code.ashx" onclick="this.src=this.src+'?'" />
                 </div>
                 <button type="button" class="btn btn-default" onclick="login()">登录</button>
-            }            
+            }
         </div>
         <div class="col-md-4">
         </div>
@@ -45,16 +45,23 @@
 
 @section footer{
     @Scripts.Render("~/Scripts/rsa/js")
+
+
+    <script>
+        function login() {
+            var pwd = $("#password").val();
+            var result = RSAClient.Encryt([pwd]);
+
+            $("input[name=tmpToken]").val(result.tmpToken);
+            $("input[name=password]").val(result.encryptData[0]);
+
+            $("form").submit();
+        }
+
+        $("body").keydown(function () {
+            if (event.keyCode == "13") {//keyCode=13是回车键
+                login();
+            };
+        });
+    </script>
 }
-
-<script>
-    function login() {
-        var pwd = $("#password").val();
-        var result = RSAClient.Encryt([pwd]);
-        
-        $("input[name=tmpToken]").val(result.tmpToken);
-        $("input[name=password]").val(result.encryptData[0]);
-
-        $("form").submit();
-    }
-</script>

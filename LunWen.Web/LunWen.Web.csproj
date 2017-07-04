@@ -161,6 +161,7 @@
     <Compile Include="Controllers\DbController.cs" />
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\RSAController.cs" />
+    <Compile Include="Controllers\ThesisMgrController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\TimingActionFilter.cs" />
     <Compile Include="Filters\ExcepitonFilter.cs" />
@@ -193,6 +194,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="verify_code.ashx" />
     <Content Include="Views\Nav\Index.cshtml" />
+    <Content Include="Views\ThesisMgr\Check.cshtml" />
+    <Content Include="Views\ThesisMgr\BatchSubmit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

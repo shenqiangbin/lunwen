@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autofac.Integration.Mvc;
+using LunWen.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -56,6 +58,8 @@ namespace LunWen.Web.Filters
         private bool IsInRole(string account, string url)
         {
             //todo:添加角色验证代码
+            var menuService = AutofacDependencyResolver.Current.GetService(typeof(MenuService)) as MenuService;
+
             if (account != "admin" && url == "/user/index")
                 return false;
             else

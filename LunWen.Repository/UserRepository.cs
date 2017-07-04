@@ -72,12 +72,7 @@ where {0} ";
         {
             string sql = @"
 select 
-	user.id,
-    user.usercode,
-    user.UserName,
-    user.phone,
-    user.email,
-    user.sex,
+	user.*,
     userrole.roleid
     
  from user

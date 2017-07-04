@@ -15,23 +15,25 @@ namespace LunWen.Web.Controllers
     public class HomeController : Controller
     {
         private UserService _userService;
+        private MenuService _menuService;
 
-        public HomeController(UserService userService)
+        public HomeController(UserService userService, MenuService menuService)
         {
             _userService = userService;
+            _menuService = menuService;
         }
-        
+
         public ActionResult Index()
         {
             if (ContextUser.IsLogined)
-                return RedirectToAction("index", "user");
+                return GoUrl();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(string usercode, string password, string validateCode, string tmpToken, string returnUrl)
-        {            
+        {
             try
             {
                 ViewBag.UserCode = usercode;
@@ -41,7 +43,7 @@ namespace LunWen.Web.Controllers
                 if (CheckUser(usercode, password))
                 {
                     SessionHelper.Store(usercode, string.Empty);
-                    return RedirectToAction("index", "user");
+                    return GoUrl();
                 }
                 else
                 {
@@ -107,6 +109,16 @@ namespace LunWen.Web.Controllers
         public ActionResult UnAuthrize()
         {
             return Content("没有访问权限");
+        }
+
+
+        private ActionResult GoUrl()
+        {
+            Menu menu = _menuService.GetFirstMenu(ContextUser.RoleId, 0);
+            if (menu != null)
+                return Redirect(menu.MenuUrl);
+            else
+                return Redirect("/");
         }
     }
 }
