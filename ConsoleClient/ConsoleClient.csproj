@@ -49,9 +49,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LunWen.Cache\LunWen.Cache.csproj">
+      <Project>{ec3801a3-a009-4d0c-a614-275a3050b04b}</Project>
+      <Name>LunWen.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LunWen.Infrastructure\LunWen.Infrastructure.csproj">
       <Project>{50c7cde9-4e3d-4712-91ba-cb5a18406130}</Project>
       <Name>LunWen.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LunWen.Model\LunWen.Model.csproj">
+      <Project>{9109494d-2e7a-4011-b27d-cba4c185e023}</Project>
+      <Name>LunWen.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
