@@ -1,4 +1,5 @@
-﻿using LunWen.Model;
+﻿using LunWen.Cache;
+using LunWen.Model;
 using LunWen.Model.Request;
 using LunWen.Repository;
 using System;
@@ -47,9 +48,22 @@ namespace LunWen.Service
             return _userRepository.Get(query);
         }
 
-        public UserInfo GetUserByCode(string userCode)
+        public UserInfo GetUserByCode(string userCode, bool useCache = false)
         {
-            IEnumerable<UserInfo> users = _userRepository.GetUserByCode(userCode);
+            IEnumerable<UserInfo> users;
+            if (useCache)
+            {
+                users = CacheManager.Cache.Get<IEnumerable<UserInfo>>(KeyManager.GetUserKey(userCode));
+                if (users == null)
+                {
+                    users = _userRepository.GetUserByCode(userCode);
+                    CacheManager.Cache.Store(KeyManager.GetUserKey(userCode), users);
+                }
+            }
+            else
+            {
+                users = _userRepository.GetUserByCode(userCode);
+            }
 
             if (users != null && users.Count() > 1)
                 throw new Exception("usercode有重复：" + userCode);

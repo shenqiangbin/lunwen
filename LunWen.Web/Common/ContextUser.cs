@@ -35,7 +35,7 @@ namespace LunWen.Web.Common
             get
             {
                 var userService = AutofacDependencyResolver.Current.GetService(typeof(UserService)) as UserService;
-                var user = userService.GetUserByCode(ContextUser.UserCode);
+                var user = userService.GetUserByCode(ContextUser.UserCode, true);
                 if (user != null)
                     return user.UserName;
                 else
@@ -48,7 +48,7 @@ namespace LunWen.Web.Common
             get
             {
                 var userService = AutofacDependencyResolver.Current.GetService(typeof(UserService)) as UserService;
-                var user = userService.GetUserByCode(ContextUser.UserCode);
+                var user = userService.GetUserByCode(ContextUser.UserCode, true);
                 if (user != null)
                     return user.RoleId;
                 else

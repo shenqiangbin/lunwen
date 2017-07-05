@@ -1,4 +1,5 @@
-﻿using LunWen.Model;
+﻿using LunWen.Cache;
+using LunWen.Model;
 using LunWen.Model.Request;
 using LunWen.Repository;
 using System;
@@ -63,7 +64,14 @@ namespace LunWen.Service
 
         public bool CanAccess(int roleId, string url)
         {
-            var menus = _menuRepository.SelectBy(new Dictionary<string, string> { { "status", "1" } });
+            IEnumerable<Menu> menus = null;
+            menus = CacheManager.Cache.Get<IEnumerable<Menu>>(KeyManager.GetALLMenuKey());
+            if (menus == null)
+            {
+                menus = _menuRepository.SelectBy(new Dictionary<string, string> { { "status", "1" } });
+                CacheManager.Cache.Store(KeyManager.GetALLMenuKey(), menus);
+            }
+
             if (!menus.Where(m => m.MenuUrl.ToLower() == url.ToLower()).Any())
                 return true;
 
