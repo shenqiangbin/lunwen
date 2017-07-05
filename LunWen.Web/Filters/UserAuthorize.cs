@@ -1,5 +1,6 @@
 ﻿using Autofac.Integration.Mvc;
 using LunWen.Service;
+using LunWen.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,11 +60,11 @@ namespace LunWen.Web.Filters
         {
             //todo:添加角色验证代码
             var menuService = AutofacDependencyResolver.Current.GetService(typeof(MenuService)) as MenuService;
-
-            if (account != "admin" && url == "/user/index")
-                return false;
-            else
-                return true;
+            return menuService.CanAccess(ContextUser.RoleId, actionUrl);
+            //if (account != "admin" && url == "/user/index")
+            //    return false;
+            //else
+            //    return true;
         }
     }
 }

@@ -49,16 +49,30 @@ namespace LunWen.Service
 
         public IEnumerable<Menu> GetMenuByRole(int roleId, int parentId)
         {
-            return _menuRepository.GetByRole(roleId,parentId);
+            return _menuRepository.GetByRole(roleId, parentId);
         }
 
-        public Menu GetFirstMenu(int roleId,int parentId)
+        public Menu GetFirstMenu(int roleId, int parentId)
         {
-            var menus = _menuRepository.GetByRole(roleId,parentId);
+            var menus = _menuRepository.GetByRole(roleId, parentId);
             if (menus != null)
                 return menus.OrderBy(m => m.Sort).FirstOrDefault();
             else
                 return null;
         }
+
+        public bool CanAccess(int roleId, string url)
+        {
+            var menus = _menuRepository.SelectBy(new Dictionary<string, string> { { "status", "1" } });
+            if (!menus.Where(m => m.MenuUrl.ToLower() == url.ToLower()).Any())
+                return true;
+
+            var canAccessMenus = _menuRepository.GetByRole(roleId);
+            if (canAccessMenus.Where(m => m.MenuUrl.ToLower() == url.ToLower()).Any())
+                return true;
+            else
+                return false;
+        }
+
     }
 }
