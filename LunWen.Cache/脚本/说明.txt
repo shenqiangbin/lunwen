@@ -1,0 +1,1 @@
+脚本文件夹需要拷贝到 \packages\redis-64.3.0.503\tools 下面运行，且tools下面需要建立 Logs 文件夹
