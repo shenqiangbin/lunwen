@@ -8,6 +8,7 @@ using System.Web.Http;
 namespace LunWen.Api.Controllers
 {
     
+    [AllowAnonymous]
     public class DefaultController : ApiController
     {
         [Route("")]

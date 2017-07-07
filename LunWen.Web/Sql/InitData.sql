@@ -48,3 +48,5 @@ INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('2', '4
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('2', '6', '1');
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('2', '8', '1');
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('2', '9', '1');
+
+INSERT INTO `thesisdb`.`accessconfig` (`AppKey`, `AppSecret`, `Status`) VALUES ('44j2scyyl4rdrtaj4cdm0f', 's+QG+0CIX0G0T22pw+I+jw', '1');

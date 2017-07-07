@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessConfigRepository.cs" />
     <Compile Include="baseDAO\Column.cs" />
     <Compile Include="baseDAO\DicHelper.cs" />
     <Compile Include="baseDAO\IBaseRepository.cs" />

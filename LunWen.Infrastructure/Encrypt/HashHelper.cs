@@ -24,6 +24,7 @@ namespace LunWen.Infrastructure
         public static string HashMd5(string orginal, string salt)
         {
             return HashHelper.Hash(salt + MD5Helper.MD5Value(orginal));
+            
         }
     }
 }

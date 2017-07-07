@@ -107,3 +107,17 @@ create table Menu
    primary key(Id)    
 );
 alter table Menu comment '菜单';
+
+drop table if exists accessconfig;
+create table accessconfig
+(
+   Id       	int not null auto_increment comment ' 唯一标识',
+   AppKey		varchar(100) not null comment 'appKey',
+   AppSecret	varchar(100) not null comment '密钥',   
+   Status		int not null default 1 comment '是否删除：1：未删除，0：已删除',
+   
+   primary key(Id) ,
+   unique (AppKey),
+   unique (AppSecret)
+);
+alter table Role comment 'api访问控制表';

@@ -17,5 +17,10 @@ namespace LunWen.Cache
         {
             return "lunwen-allmenus";
         }
+
+        public static string GetAccessConfigKey()
+        {
+            return "lunwen-accessconfig";
+        }
     }
 }
