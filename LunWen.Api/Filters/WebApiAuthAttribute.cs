@@ -40,12 +40,17 @@ namespace LunWen.Api.Filters
 
                 foreach (var item in request.Form.AllKeys)
                 {
-                    if ("sign" == item.ToLower())
-                        sign = request.Form[item];
-                    else if ("appkey" == item.ToLower())
-                        appKey = request.Form[item];
-                    else if (!string.IsNullOrEmpty(request.Form[item]))
+                    if (!string.IsNullOrEmpty(request.Form[item]))
                         paraList.Add(request.Form[item]);
+                }
+
+                var paras = actionContext.Request.GetQueryNameValuePairs();
+                foreach (var item in paras)
+                {
+                    if ("sign" == item.Key.ToLower())
+                        sign = item.Value;
+                    else if ("appkey" == item.Key.ToLower())
+                        appKey = item.Value;
                 }
             }
 
@@ -65,7 +70,7 @@ namespace LunWen.Api.Filters
         private string GetAppKey(string appKey)
         {
             var accessConfigService = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(AccessConfigService)) as AccessConfigService;
-            return accessConfigService.GetAppSecret(appKey);            
+            return accessConfigService.GetAppSecret(appKey);
         }
 
         public override void OnAuthorization(HttpActionContext actionContext)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,11 @@ namespace LunWen.Cache
                     {
                         if (_cache != null) return _cache;
 
-                        _cache = new ReidsCache();
+                        if (ConfigurationManager.AppSettings["CacheEnabled"] == "true")
+                            _cache = new ReidsCache();
+                        else
+                            _cache = new NullCache();
+
                         return _cache;
                     }
                 }

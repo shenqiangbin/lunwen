@@ -1,4 +1,5 @@
 ﻿using LunWen.Infrastructure;
+using LunWen.Model;
 using LunWen.Service;
 using System;
 using System.Collections.Generic;
@@ -26,14 +27,26 @@ namespace LunWen.Api.Controllers
                     return Ok(new BaseApiResponse() { Status = 401, Msg = "userCode不能为空" });
 
                 var userInfo = _userService.GetUserByCode(usercode);
-                return Ok(userInfo);
+                return Ok(new BaseApiResponse() { Status = 200, Data = userInfo });
             }
             catch (Exception ex)
             {
                 return Ok(new BaseApiResponse() { Status = 500, Msg = "内部错误" });
             }
+        }
 
-            //todo：这里需要全部加上status
+        [HttpPost]
+        public IHttpActionResult Add([FromBody]Model.User user)
+        {
+            try
+            {
+                int id = _userService.Add(user);
+                return Ok(new BaseApiResponse() { Status = 200, Data = new User { Id = id } });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new BaseApiResponse() { Status = 500, Msg = "内部错误" });
+            }
         }
     }
 }

@@ -63,5 +63,9 @@
                 login();
             };
         });
+        var data={usercode:'abc',username:'de'};
+        $.post('http://localhost:32311/api/user/Add', data, function (d) {
+            console.log(d);
+        });
     </script>
 }

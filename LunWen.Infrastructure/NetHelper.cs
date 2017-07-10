@@ -39,9 +39,19 @@ namespace LunWen.Infrastructure
                 HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
 
                 request.Method = "Post";
-                request.ContentType = "application/json";
+                request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8"; //这里必须是这个，在过滤器中才能通过form.keys获取到参数
 
-                string body = JsonHelper.SerializeObject(requestData);
+                List<string> para = new List<string>();
+                foreach (var item in requestData.GetType().GetProperties())
+                {
+                    var val = item.GetValue(requestData);
+                    //if (!string.IsNullOrEmpty(val.ToString()))
+                    para.Add(item.Name + "=" + val.ToString());
+                }
+
+                //string body = JsonHelper.SerializeObject(requestData); //如果type是json格式的话，可以用这句。
+                string body = string.Join("&", para.ToList());
+
                 byte[] bytes = Encoding.UTF8.GetBytes(body);
                 request.GetRequestStream().Write(bytes, 0, bytes.Length);
 
@@ -63,11 +73,12 @@ namespace LunWen.Infrastructure
 
     public class AppNetHelper
     {
-        public static T Get<T>(string url) where T : class
+        public static BaseApiResponse<T> Get<T>(string url) where T : class
         {
             var signUrl = AddSign(url);
             string content = NetHelper.Get(signUrl);
-            return JsonHelper.DeserializeJsonToObject<T>(content);
+            var response = JsonHelper.DeserializeJsonToObject<BaseApiResponse<T>>(content);
+            return response;
         }
 
         private static string AddSign(string url)
@@ -92,27 +103,37 @@ namespace LunWen.Infrastructure
                 return string.Format("{0}?appkey={1}&sign={2}", url, appKey, sign);
         }
 
-        public static T Post<T>(string url, object requestData) where T : class
+        public static BaseApiResponse<T> Post<T>(string url, object requestData) where T : class
         {
-            AddSignData(requestData);
+            url = AddSignData(requestData, url);
             string content = NetHelper.Post(url, requestData);
-            return JsonHelper.DeserializeJsonToObject<T>(content);
+            var response = JsonHelper.DeserializeJsonToObject<BaseApiResponse<T>>(content);
+            return response;
         }
 
-        private static void AddSignData(object requestData)
+        private static string AddSignData(object requestData, string url)
         {
             List<string> para = new List<string>();
             foreach (var item in requestData.GetType().GetProperties())
             {
                 var val = item.GetValue(requestData);
-                if (string.IsNullOrEmpty(val.ToString()))
+                if (!string.IsNullOrEmpty(val.ToString()))
                     para.Add(val.ToString());
             }
             para.Sort();
 
+            //string appSecret = "s+QG+0CIX0G0T22pw+I+jw";
+            //((BaseApiRequest)requestData).Appkey = "44j2scyyl4rdrtaj4cdm0f";
+            //((BaseApiRequest)requestData).Sign = HashHelper.HashMd5(string.Join(",", para), appSecret);
+
             string appSecret = "s+QG+0CIX0G0T22pw+I+jw";
-            ((BaseApiRequest)requestData).Appkey = "44j2scyyl4rdrtaj4cdm0f";
-            ((BaseApiRequest)requestData).Sign = HashHelper.HashMd5(string.Join(",", para), appSecret);
+            string appKey = "44j2scyyl4rdrtaj4cdm0f";
+            string sign = HashHelper.HashMd5(string.Join(",", para), appSecret);
+
+            if (url.Contains("?"))
+                return string.Format("{0}&appkey={1}&sign={2}", url, appKey, sign);
+            else
+                return string.Format("{0}?appkey={1}&sign={2}", url, appKey, sign);
         }
     }
 
@@ -122,9 +143,17 @@ namespace LunWen.Infrastructure
         public string Sign { get; set; }
     }
 
+    public class BaseApiResponse<T>
+    {
+        public int Status { get; set; }
+        public string Msg { get; set; }
+        public T Data { get; set; }
+    }
     public class BaseApiResponse
     {
         public int Status { get; set; }
         public string Msg { get; set; }
+        public object Data { get; set; }
     }
+
 }

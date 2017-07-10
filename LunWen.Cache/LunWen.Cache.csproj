@@ -51,6 +51,7 @@
     <Compile Include="ICache.cs" />
     <Compile Include="KeyManager.cs" />
     <Compile Include="MemoryCacheAdapter.cs" />
+    <Compile Include="NullCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReidsCache.cs" />
     <None Include="脚本\卸载.bat">

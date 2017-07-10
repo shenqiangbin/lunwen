@@ -2,6 +2,7 @@
 using LunWen.Api.Filters;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Routing;
@@ -14,7 +15,8 @@ namespace LunWen.Api
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            GlobalConfiguration.Configuration.Filters.Add(new WebApiAuthAttribute());
+            if (ConfigurationManager.AppSettings["AuthFilterEnable"].ToLower() == "true")
+                GlobalConfiguration.Configuration.Filters.Add(new WebApiAuthAttribute());
 
             AutofacHelper.Inject();
         }
