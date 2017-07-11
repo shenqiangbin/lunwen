@@ -15,6 +15,7 @@ namespace LunWen.Api.Filters
     {
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
+            string time = null;
             string appKey = null;
             string appSecret = null;
             string sign = null;
@@ -29,6 +30,8 @@ namespace LunWen.Api.Filters
                         sign = item.Value;
                     else if ("appkey" == item.Key.ToLower())
                         appKey = item.Value;
+                    else if ("time" == item.Key.ToLower())
+                        time = item.Value;
                     else if (!string.IsNullOrEmpty(item.Value))
                         paraList.Add(item.Value);
                 }
@@ -51,12 +54,21 @@ namespace LunWen.Api.Filters
                         sign = item.Value;
                     else if ("appkey" == item.Key.ToLower())
                         appKey = item.Value;
+                    else if ("time" == item.Key.ToLower())
+                        time = item.Value;
                 }
+            }
+
+            var postTime = new DateTime(Convert.ToInt64(time));
+            if ((DateTime.Now - postTime).TotalMinutes >= 3)
+            {                
+                return false;
             }
 
             if (string.IsNullOrEmpty(appKey) || string.IsNullOrEmpty(sign))
                 return false;
 
+            paraList.Add(time);
             paraList.Sort();
 
             appSecret = GetAppKey(appKey);

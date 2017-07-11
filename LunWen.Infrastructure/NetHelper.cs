@@ -83,6 +83,8 @@ namespace LunWen.Infrastructure
 
         private static string AddSign(string url)
         {
+            var time = DateTime.Now.Ticks.ToString();
+
             List<string> para = new List<string>();
             string query = url.Substring(url.IndexOf("?"));
             foreach (var item in query.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries))
@@ -91,6 +93,8 @@ namespace LunWen.Infrastructure
                 if (keyvalue.Count() >= 2)
                     para.Add(keyvalue[1]);
             }
+
+            para.Add(time);
             para.Sort();
 
             string appSecret = "s+QG+0CIX0G0T22pw+I+jw";
@@ -98,9 +102,9 @@ namespace LunWen.Infrastructure
             string sign = HashHelper.HashMd5(string.Join(",", para), appSecret);
 
             if (url.Contains("?"))
-                return string.Format("{0}&appkey={1}&sign={2}", url, appKey, sign);
+                return string.Format("{0}&appkey={1}&sign={2}&time={3}", url, appKey, sign, time);
             else
-                return string.Format("{0}?appkey={1}&sign={2}", url, appKey, sign);
+                return string.Format("{0}?appkey={1}&sign={2}&time={3}", url, appKey, sign, time);
         }
 
         public static BaseApiResponse<T> Post<T>(string url, object requestData) where T : class
@@ -113,6 +117,8 @@ namespace LunWen.Infrastructure
 
         private static string AddSignData(object requestData, string url)
         {
+            var time = DateTime.Now.Ticks.ToString();
+
             List<string> para = new List<string>();
             foreach (var item in requestData.GetType().GetProperties())
             {
@@ -120,6 +126,7 @@ namespace LunWen.Infrastructure
                 if (!string.IsNullOrEmpty(val.ToString()))
                     para.Add(val.ToString());
             }
+            para.Add(time);
             para.Sort();
 
             //string appSecret = "s+QG+0CIX0G0T22pw+I+jw";
@@ -131,9 +138,9 @@ namespace LunWen.Infrastructure
             string sign = HashHelper.HashMd5(string.Join(",", para), appSecret);
 
             if (url.Contains("?"))
-                return string.Format("{0}&appkey={1}&sign={2}", url, appKey, sign);
+                return string.Format("{0}&appkey={1}&sign={2}&time={3}", url, appKey, sign, time);
             else
-                return string.Format("{0}?appkey={1}&sign={2}", url, appKey, sign);
+                return string.Format("{0}?appkey={1}&sign={2}&time={3}", url, appKey, sign, time);
         }
     }
 

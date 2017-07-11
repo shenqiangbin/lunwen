@@ -28,14 +28,18 @@ namespace ConsoleClient
 
         private static void TestApiInvoker()
         {
-            //var response = AppNetHelper.Get<UserInfo>("http://localhost:32311/api/user/getAll?usercode=admin1");
-            //if (response.Status == 200)
-            //{
+            var response = AppNetHelper.Get<UserInfo>("http://localhost:8091/api/user/getAll?usercode=admin");
+            if (response.Status == 200)
+            {
 
-            //}
+            }
 
-            var response = AppNetHelper.Post<User>("http://localhost:8011/api/user/Add", 
+            var response2 = AppNetHelper.Post<User>("http://localhost:8091/api/user/Add", 
                 new User { UserCode = "tester", UserName = "testerName" });
+            if(response2.Status == 200)
+            {
+                var user = response2.Data;
+            }
         }       
 
         private static void TestNetHelper()

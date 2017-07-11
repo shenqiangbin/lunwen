@@ -40,12 +40,14 @@ namespace LunWen.Api.Controllers
         {
             try
             {
+                user.Password = "abc";
+                user.Salt = "abc";
                 int id = _userService.Add(user);
                 return Ok(new BaseApiResponse() { Status = 200, Data = new User { Id = id } });
             }
             catch (Exception ex)
             {
-                return Ok(new BaseApiResponse() { Status = 500, Msg = "内部错误" });
+                return Ok(new BaseApiResponse() { Status = 500, Msg = "内部错误" + ex.Message });
             }
         }
     }
