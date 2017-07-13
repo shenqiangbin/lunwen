@@ -11,10 +11,12 @@ namespace TimerService
     {
         static void Main(string[] args)
         {
-            FileLogger.Log("start");
+            SqlLogger.Log("程序运行");
 
             HostFactory.Run(x =>
             {
+                SqlLogger.Log("程序运行 Run");
+
                 x.Service<ServiceRunner>();
 
                 x.RunAsLocalSystem();

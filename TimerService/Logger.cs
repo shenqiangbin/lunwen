@@ -12,13 +12,13 @@ namespace TimerService
         public static void Log(string msg)
         {
             ILog _log = LogManager.GetLogger("SysLogger");
-            _log.Error(msg);
+            _log.Error(string.Format("定时服务：{0}",msg));
         }
 
         public static void Log(object msg)
         {
             ILog _log = LogManager.GetLogger("SysLogger");
-            _log.Error(msg);
+            _log.Error(string.Format("定时服务：{0}", msg));
         }
 
         public static void Log(Exception ex)
@@ -33,13 +33,13 @@ namespace TimerService
         public static void Log(string msg)
         {
             ILog _log = LogManager.GetLogger("mvclog");
-            _log.Error(msg);
+            _log.Error(string.Format("定时服务：{0}", msg));
         }
 
         public static void Log(object msg)
         {
             ILog _log = LogManager.GetLogger("mvclog");
-            _log.Error(msg);
+            _log.Error(string.Format("定时服务：{0}", msg));
         }
 
         public static void Log(Exception ex)

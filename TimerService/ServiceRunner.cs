@@ -10,12 +10,14 @@ namespace TimerService
     {
         public bool Start(HostControl hostControl)
         {
-            throw new NotImplementedException();
+            SqlLogger.Log("服务启动");
+            return true;
         }
 
         public bool Stop(HostControl hostControl)
         {
-            throw new NotImplementedException();
+            SqlLogger.Log("服务停止");
+            return true;
         }
     }
 }
