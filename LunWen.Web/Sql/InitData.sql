@@ -50,3 +50,5 @@ INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('2', '8
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('2', '9', '1');
 
 INSERT INTO `thesisdb`.`accessconfig` (`AppKey`, `AppSecret`, `Status`) VALUES ('44j2scyyl4rdrtaj4cdm0f', 's+QG+0CIX0G0T22pw+I+jw', '1');
+
+INSERT INTO `thesisdb`.`smstask` (`sysid`, `sysname`, `moduleid`, `modulename`, `phone`, `text`, `status`, `date`) VALUES ('1', '论文系统', '1', '用户创建', '15201106926', '您的帐号已创建', '0', '2017/7/14 10:10:00');

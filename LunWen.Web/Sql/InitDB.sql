@@ -120,4 +120,42 @@ create table accessconfig
    unique (AppKey),
    unique (AppSecret)
 );
-alter table Role comment 'api访问控制表';
+alter table accessconfig comment 'api访问控制表';
+
+
+drop table if exists smsTask;
+create table smsTask
+(
+	id			int not null auto_increment comment '唯一标识',
+    sysid		int not null comment '系统id',
+    sysname 	nvarchar(50) not null comment '系统名称',
+    moduleid	int not null comment '模块id',
+    modulename	nvarchar(50) not null comment '模块名称',
+    phone 		varchar(50) not null default '' comment '手机号',
+    text		nvarchar(50) not null comment '短信内容',
+    status		int not null default 0 comment '状态：0待发送，1发送成功，2发送失败',
+    date		datetime not null comment '创建日期',     
+    
+    primary key(id)
+);
+alter table smsTask comment '短信任务';
+
+drop table if exists smsTaskLog;
+create table smsTaskLog
+(
+   id       	int not null auto_increment comment '唯一标识',
+   sysid		int not null comment '系统id',
+   sysname		nvarchar(50) not null comment '系统名称',
+   moduleid		int not null comment '模块id',
+   modulename	nvarchar(50) not null comment '模块名称',
+   date			datetime not null comment '发送日期',
+   phone		varchar(50) not null default '' comment '手机号',
+   text			nvarchar(50) not null comment '短信内容',
+   success		int not null default -1 comment '是否成功：1：成功，0：失败',
+   smschannel	nvarchar(50) not null default 1 comment '短信通道',
+   msg			nvarchar(150) null default '' comment '其他信息',
+   
+   primary key(id)
+);
+
+alter table smsTaskLog comment '发送短信任务日志';

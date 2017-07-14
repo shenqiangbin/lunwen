@@ -11,21 +11,42 @@ namespace TimerService
     {
         public void Execute(IJobExecutionContext context)
         {
-            SqlLogger.Log("任务：发送短信开始");
+             SqlLogger.Log("任务：发送短信开始");
 
-            string sql = "select * from smsTask where taskStatus = 0";
-            var smsTasks = MySqlHelper.GetConn().Query(sql);
-
-            string taskLogSql = @"insert into smsTaskLog(sysid,sysname,moduleid,modulename,date,phone,success,smschanel,msg) values
-                ();";
-
-            foreach (var item in smsTasks)
+            try
             {
-                SMSResult result = SMSHelper.Send(item.Phone);
-                if (result.Success)
-                {
+                string sql = "select * from smsTask where status = 0";
+                var smsTasks = MySqlHelper.GetConn().Query(sql);
 
+                string taskLogSql = @"insert into smsTaskLog(sysid,sysname,moduleid,modulename,date,phone,text,success,smschannel,msg) values
+                (@sysid,@sysname,@moduleid,@modulename,@date,@phone,@text,@success,@smschannel,@msg);";
+
+                var time = DateTime.Now;
+                foreach (var item in smsTasks)
+                {
+                    SMSResult result = SMSHelper.Send(item.phone);
+
+                    MySqlHelper.GetConn().Execute("update smsTask set status = @status where id = @id",
+                        new { id = item.id, status = result.Success ? 1 : 2 });
+
+                    MySqlHelper.GetConn().Execute(taskLogSql, new
+                    {
+                        sysid = item.sysid,
+                        sysname = item.sysname,
+                        moduleid = item.moduleid,
+                        modulename = item.modulename,
+                        date = time,
+                        phone = item.phone,
+                        text = item.text,
+                        success = result.Success ? 1 : 0,
+                        smschannel = result.Channel,
+                        msg = result.Msg
+                    });
                 }
+            }
+            catch (Exception ex)
+            {
+                SqlLogger.Log(ex);
             }
         }
 
