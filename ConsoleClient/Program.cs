@@ -4,12 +4,14 @@ using LunWen.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Xml;
 
 namespace ConsoleClient
 {
@@ -23,10 +25,168 @@ namespace ConsoleClient
             //string content = NetHelper.Get("http://www.baidu.com");
             //TestApiInvoker();
             //PoJie();
-            QiongJu();
+            //QiongJu();
             //GetAccessConfigData();
             //TestCache();
-            Console.ReadKey();
+            //RegisterDOI();
+            //RegisterMetadata();
+            RequestImage();
+            //ConvertList();
+            //ComblineStr();
+
+
+            Console.WriteLine();
+        }
+
+        private static void RequestImage()
+        {
+            HttpWebRequest request2 = HttpWebRequest.Create("https://apimg.alipay.com/combo.png?d=cashier&t=" + "6214686002098863") as HttpWebRequest;
+            request2.Method = "Get";
+            request2.ContentType = "image/jpeg";
+            WebResponse response2 = request2.GetResponse();
+            var stream2 = response2.GetResponseStream();
+            Image image = Image.FromStream(stream2);
+            image.ToString()
+        }
+
+        private static void ComblineStr()
+        {
+            string str = @"
+ContactPerson, DataCollector, DataCurator, DataManager, Distributor, Editor, HostingInstitution, Other, Producer, ProjectLeader, ProjectManager, ProjectMember, RegistrationAgency, RegistrationAuthority, RelatedPerson, ResearchGroup, RightsHolder, Researcher, Sponsor, Supervisor, WorkPackageLeader
+";
+
+            string tableName = "contributorTypeCode";
+            string[] arr = str.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var item in arr)
+            {
+                builder.AppendLine(string.Format("insert {0} values('{1}','');", tableName, item.Trim()));
+            }
+
+            string result = builder.ToString();
+        }
+
+        private static void RegisterMetadata()
+        {
+            string userName = "TSINGHUA.NGAC";
+            userName = "TSINGHUA.TEST0";
+            string password = "tsinghua_mds";
+
+            string url = "https://mds.datacite.org/metadata/";
+            HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+
+            request.Method = "Post";
+            request.ContentType = "application/xml; charset=UTF-8";
+            //获得用户名密码的Base64编码
+            string code = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", userName, password)));
+            //添加Authorization到HTTP头
+            request.Headers.Add("Authorization", "Basic " + code);
+            //VFNJTkdIVUE6dHNpbmdodWFfbWRz
+            string body = System.IO.File.ReadAllText("d:/doi.xml");
+
+            byte[] bytes = Encoding.UTF8.GetBytes(body);
+            request.GetRequestStream().Write(bytes, 0, bytes.Length);
+
+            try
+            {
+                WebResponse response = request.GetResponse();
+                var stream = response.GetResponseStream();
+                using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+                {
+                    var content = sr.ReadToEnd();
+                }
+            }
+            catch (WebException ex)
+            {
+                HttpWebResponse response = (HttpWebResponse)ex.Response;
+                Console.WriteLine("Error code: {0}", response.StatusCode);
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    using (Stream data = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(data))
+                        {
+                            string text = reader.ReadToEnd();
+                            Console.WriteLine(text);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static List<string> ConvertList()
+        {
+            string xml = System.IO.File.ReadAllText("d:/1.xml");
+
+            List<string> list = new List<string>();
+
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xml);
+
+            var nameMgr = new XmlNamespaceManager(xmlDoc.NameTable);
+
+            nameMgr.AddNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            nameMgr.AddNamespace("noName", "http://datacite.org/schema/kernel-4");
+
+            XmlNodeList resouceNodes = xmlDoc.SelectNodes("noName:resources/noName:resource", nameMgr);
+            if (resouceNodes != null)
+            {
+                foreach (XmlNode resouceNode in resouceNodes)
+                {
+                    StringBuilder builder = new StringBuilder();
+                    builder.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+                    builder.AppendLine("<resource xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://datacite.org/schema/kernel-4\" xsi:schemaLocation=\"http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd\">");
+
+                    var uriList = resouceNode.SelectNodes("noName:uri", nameMgr);
+                    foreach (XmlNode uriNode in uriList)
+                    {
+                        resouceNode.RemoveChild(uriNode);
+                    }
+
+                    builder.AppendLine(resouceNode.InnerXml);
+
+                    builder.AppendLine("</resource>");
+
+                    var content = builder.ToString();
+
+                    list.Add(content);
+                }
+            }
+
+            return list;
+        }
+
+        private static void RegisterDOI()
+        {
+            string userName = "TSINGHUA";
+            userName = "TSINGHUA.TEST0";
+            string password = "tsinghua_mds";
+
+            //10.5072/j.cnki.jbuns.20140116.003
+            string url = "https://mds.datacite.org/doi/10.5072/j.cnki.jbuns.20140116.003";
+            HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+
+            request.Method = "Put";
+            request.ContentType = "application/xml; charset=UTF-8";
+            //获得用户名密码的Base64编码
+            string code = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", userName, password)));
+            //添加Authorization到HTTP头
+            request.Headers.Add("Authorization", "Basic " + code);
+            //VFNJTkdIVUE6dHNpbmdodWFfbWRz
+            string body = string.Format("doi={0}\r\nurl={1}", "10.5072/j.cnki.jbuns.20140116.003", "http://www.cnki.com");
+            //body = HttpUtility.UrlEncode(body);
+
+            byte[] bytes = Encoding.UTF8.GetBytes(body);
+            request.GetRequestStream().Write(bytes, 0, bytes.Length);
+
+            WebResponse response = request.GetResponse();
+            var stream = response.GetResponseStream();
+            using (StreamReader sr = new StreamReader(stream, Encoding.UTF8))
+            {
+                var content = sr.ReadToEnd();
+            }
         }
 
         private static void TestApiInvoker()
