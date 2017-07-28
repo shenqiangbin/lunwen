@@ -1,0 +1,79 @@
+﻿<div style="margin-top:20px;">
+    <h4>银行卡号所属银行查询</h4>
+    <div class="form-group">
+        <label for="number">请输入要查询的银行卡号</label>
+        <input type="text" class="form-control" id="number" name="number" value="" maxlength="25" />
+        <div style="margin:10px 0;color:red;" id="numberMsg"></div>
+    </div>
+    <div class="form-group">
+        <input type="button" class="btn btn-default" id="btn" value="查询" />
+    </div>
+    <div class="form-group">
+        <div id="msg">
+
+        </div>
+    </div>
+</div>
+
+@section footer{
+    <script>
+        $(function () {
+
+            function resetBtn() {
+                $('#btn').removeAttr('disabled');
+                $('#btn').val('查询');
+            }
+
+            function showInvalidNum() {
+                $("#msg").html("没有查询到此卡号，可能卡号不正确");
+                resetBtn();
+            }
+
+            function showBankInfo(bankInfo) {
+                $("#msg").append("<div>所属银行：{0}</div><img src='{1}' />".replace("{0}", bankInfo.Name).replace("{1}", bankInfo.Logo));
+                resetBtn();
+            }
+
+            $("#btn").click(function () {
+                $("#msg").html("");
+
+                var number = $("#number").val().trim();
+                if (number == undefined || number == "") {
+                    $("#numberMsg").html("卡号呢？");
+                    return;
+                } else {
+                    $("#numberMsg").html("");
+                }
+                var bankInfo = {};
+
+                $('#btn').attr('disabled', "true");
+                $('#btn').val('查询中...');
+
+                $.ajax({
+                    type: "get",
+                    url: "CheckBank/CheckBank?number=" + number,
+                    data: null,
+                    //async: false,
+                    success: function (data) {
+                        if (data) {
+                            if (data.validated) {
+                                result = true;
+                                if (bankInfo) {
+                                    bankInfo.Name = data.bankName;
+                                    bankInfo.Logo = data.bankLogo;
+                                    showBankInfo(bankInfo);
+                                }
+                            } else {
+                                showInvalidNum();
+                            }
+                        } else {
+                            showInvalidNum();
+                        }
+                    }
+                });
+
+
+            });
+        })
+    </script>
+}

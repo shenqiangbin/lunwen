@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace LunWen.Web.Controllers
 {
+    [AllowAnonymous]
     public class NavController : Controller
     {
         private MenuService _menuService;

@@ -46,7 +46,6 @@ namespace ConsoleClient
             WebResponse response2 = request2.GetResponse();
             var stream2 = response2.GetResponseStream();
             Image image = Image.FromStream(stream2);
-            image.ToString()
         }
 
         private static void ComblineStr()

@@ -23,6 +23,14 @@ namespace LunWen.Web.Filters
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
+            bool skipAuthorization = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), inherit: true)
+                            || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), inherit: true);
+
+            if (skipAuthorization)
+            {
+                return;
+            }
+
             var controllerName = (filterContext.RouteData.Values["controller"]).ToString().ToLower();
             var actionName = (filterContext.RouteData.Values["action"]).ToString().ToLower();
             var areaName = (filterContext.RouteData.DataTokens["area"] == null ? "" : filterContext.RouteData.DataTokens["area"]).ToString().ToLower();
