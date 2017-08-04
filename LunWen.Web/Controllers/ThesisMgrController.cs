@@ -23,8 +23,12 @@ namespace LunWen.Web.Controllers
         //论文管理
         public ActionResult Index()
         {
+            ViewBag.CurrentIndex = currentIndex;
             Menu menu = _menuService.GetFirstMenu(ContextUser.RoleId, currentIndex);
-            return Redirect(menu.MenuUrl);
+            if (menu != null)
+                return Redirect(menu.MenuUrl);
+            else
+                return View();
         }
 
         //论文审核

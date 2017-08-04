@@ -208,6 +208,8 @@
     <Content Include="Views\CostMgr\Index.cshtml" />
     <Content Include="Views\NoticeMgr\Index.cshtml" />
     <Content Include="Views\OrgMgr\Index.cshtml" />
+    <Content Include="Views\OrgMgr\RoleMgr.cshtml" />
+    <Content Include="Views\ThesisMgr\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

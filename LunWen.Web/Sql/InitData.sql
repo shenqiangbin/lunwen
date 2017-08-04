@@ -29,6 +29,7 @@ INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, 
 INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, `Sort`, `Status`) VALUES ('9','2', '2', '/ThesisMgr/Rewards', '薪酬管理','4',  '1');
 
 
+
 /*管理员有所有权限*/
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('1', '1', '1');
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('1', '2', '1');

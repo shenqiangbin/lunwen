@@ -1,0 +1,67 @@
+﻿<div>
+    <div class="row clearfix">
+        <div class="col-md-2 column text-center">
+            <ul class="nav nav-stacked nav-pills">
+                <li class="active">
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">简介</a>
+                </li>
+                <li class="disabled">
+                    <a href="#">信息</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10 column">
+            <div>
+                <a href="@Url.Action("Add","OrgMgr")">新增</a>
+            </div>
+            <table class="table  table-bordered table-hover ">
+                <tr>
+                    <td>编号</td>
+                    <td>角色</td>
+                    <td>备注</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                @*@if (userResult != null)
+                    {
+                        foreach (var item in userResult)
+                        {
+                            <tr>
+                                <td>@item.UserCode</td>
+                                <td>@item.UserName</td>
+                                <td>@LunWen.Infrastructure.SexHelper.GetDesc(item.Sex)</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Email</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">没有数据～</td>
+                        </tr>
+                    }*@
+            </table>
+
+            @*@Html.PagedListPager(userResult,
+                page => Url.Action("Index", new { page = page, username = ViewBag.UserName }), PagedListRenderOptions.Classic)*@
+        </div>
+    </div>
+</div>
+
+<script>
+
+                //点击查询按钮
+                function search() {
+                    var pageIndex = 1;
+                    var username = $("input[name=username]").val();
+                    window.location.href = g_appPath + "/user?" + "username=" + username + "&page=" + pageIndex;
+                }
+
+</script>
