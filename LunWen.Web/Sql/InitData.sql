@@ -19,7 +19,8 @@ INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, 
 INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, `Sort`, `Status`) VALUES ('2','0', '1', '/ThesisMgr/Index', '论文管理','2',  '1');
 INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, `Sort`, `Status`) VALUES ('3','0', '1', '/CostMgr/Index', '费用管理', '3', '1');
 INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, `Sort`, `Status`) VALUES ('4','0', '1', '/NoticeMgr/Index', '通知公告', '4', '1');
-INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, `Sort`, `Status`) VALUES ('5','0', '1', '/OrgMgr/Index', '架构管理', '5', '1');
+INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, `Sort`, `Status`) VALUES ('5','0', '1', '/OrgMgr/Index', '架构管理', '6', '1');
+INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, `Sort`, `Status`) VALUES ('10','0', '1', '/User/Index', '用户管理', '5', '1');
 
 
 INSERT INTO `thesisdb`.`menu` (`Id`,`ParentId`, `Level`, `MenuUrl`, `MenuName`, `Sort`, `Status`) VALUES ('6','2', '2', '/ThesisMgr/Check', '论文审核', '1', '1');
@@ -38,6 +39,7 @@ INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('1', '6
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('1', '7', '1');
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('1', '8', '1');
 INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('1', '9', '1');
+INSERT INTO `thesisdb`.`rolemenu` (`RoleId`, `MenuId`, `Status`) VALUES ('1', '10', '1');
 
 
 /*合作部管理员没有（首页、批量提交、架构管理）*/

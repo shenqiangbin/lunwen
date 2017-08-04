@@ -7,13 +7,14 @@ using System.Web.Mvc;
 
 namespace LunWen.Web.Controllers
 {
-    public class ManagerController : Controller
+    public class CostMgrController : Controller
     {
-        private int currentIndex = (int)MenuIdEnum.ManagerIndex;
+        private int currentIndex = (int)MenuIdEnum.CostMgrIndex;
 
         public ActionResult Index()
         {
             ViewBag.CurrentIndex = currentIndex;
+
             return View();
         }
     }

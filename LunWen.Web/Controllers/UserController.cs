@@ -1,4 +1,5 @@
-﻿using LunWen.Infrastructure;
+﻿using LunWen.Enums;
+using LunWen.Infrastructure;
 using LunWen.Model;
 using LunWen.Model.Request;
 using LunWen.Service;
@@ -14,6 +15,7 @@ namespace LunWen.Web.Controllers
     public class UserController : Controller
     {
         private UserService _userService;
+        private int currentIndex = (int)MenuIdEnum.UserIndex;
 
         public UserController(UserService userService)
         {
@@ -22,6 +24,8 @@ namespace LunWen.Web.Controllers
 
         public ActionResult Index(string username, int page = 1)
         {
+            ViewBag.CurrentIndex = currentIndex;
+
             int itemsPerPage = 3;
 
             var query = new UserQuery();

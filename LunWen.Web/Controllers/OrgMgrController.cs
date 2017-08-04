@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace LunWen.Web.Controllers
 {
-    public class ManagerController : Controller
+    public class OrgMgrController : Controller
     {
-        private int currentIndex = (int)MenuIdEnum.ManagerIndex;
+        private int currentIndex = (int)MenuIdEnum.OrgMgrIndex;
 
         public ActionResult Index()
         {

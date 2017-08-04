@@ -29,8 +29,8 @@ namespace ConsoleClient
             //GetAccessConfigData();
             //TestCache();
             //RegisterDOI();
-            //RegisterMetadata();
-            RequestImage();
+            RegisterMetadata();
+            //RequestImage();
             //ConvertList();
             //ComblineStr();
 
@@ -70,7 +70,7 @@ ContactPerson, DataCollector, DataCurator, DataManager, Distributor, Editor, Hos
         private static void RegisterMetadata()
         {
             string userName = "TSINGHUA.NGAC";
-            userName = "TSINGHUA.TEST0";
+            //userName = "TSINGHUA.TEST0";
             string password = "tsinghua_mds";
 
             string url = "https://mds.datacite.org/metadata/";
@@ -83,7 +83,7 @@ ContactPerson, DataCollector, DataCurator, DataManager, Distributor, Editor, Hos
             //添加Authorization到HTTP头
             request.Headers.Add("Authorization", "Basic " + code);
             //VFNJTkdIVUE6dHNpbmdodWFfbWRz
-            string body = System.IO.File.ReadAllText("d:/doi.xml");
+            string body = System.IO.File.ReadAllText("d:/wrong.xml");
 
             byte[] bytes = Encoding.UTF8.GetBytes(body);
             request.GetRequestStream().Write(bytes, 0, bytes.Length);

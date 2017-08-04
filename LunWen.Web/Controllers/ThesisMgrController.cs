@@ -1,4 +1,5 @@
-﻿using LunWen.Model;
+﻿using LunWen.Enums;
+using LunWen.Model;
 using LunWen.Service;
 using LunWen.Web.Common;
 using System;
@@ -12,7 +13,7 @@ namespace LunWen.Web.Controllers
     public class ThesisMgrController : Controller
     {
         private MenuService _menuService;
-        private int currentIndex = 2;
+        private int currentIndex = (int)MenuIdEnum.ThesisMgrIndex;
 
         public ThesisMgrController(MenuService menuService)
         {
@@ -22,7 +23,7 @@ namespace LunWen.Web.Controllers
         //论文管理
         public ActionResult Index()
         {
-            Menu menu = _menuService.GetFirstMenu(ContextUser.RoleId, 2);
+            Menu menu = _menuService.GetFirstMenu(ContextUser.RoleId, currentIndex);
             return Redirect(menu.MenuUrl);
         }
 

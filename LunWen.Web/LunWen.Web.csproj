@@ -158,11 +158,14 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\AutofacHelper.cs" />
     <Compile Include="Common\ContextUser.cs" />
+    <Compile Include="Controllers\CostMgrController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DbController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\NavController.cs" />
+    <Compile Include="Controllers\NoticeMgrController.cs" />
+    <Compile Include="Controllers\OrgMgrController.cs" />
     <Compile Include="Controllers\RSAController.cs" />
     <Compile Include="Controllers\ThesisMgrController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -202,6 +205,9 @@
     <Content Include="Views\Help\Index.cshtml" />
     <Content Include="Views\Help\BankNumber.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
+    <Content Include="Views\CostMgr\Index.cshtml" />
+    <Content Include="Views\NoticeMgr\Index.cshtml" />
+    <Content Include="Views\OrgMgr\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -215,6 +221,10 @@
     <Folder Include="Views\RSA\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LunWen.Enums\LunWen.Enums.csproj">
+      <Project>{c15761e0-7e82-4736-b3d6-953edf2bdccb}</Project>
+      <Name>LunWen.Enums</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LunWen.Infrastructure\LunWen.Infrastructure.csproj">
       <Project>{50c7cde9-4e3d-4712-91ba-cb5a18406130}</Project>
       <Name>LunWen.Infrastructure</Name>
