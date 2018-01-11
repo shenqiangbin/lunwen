@@ -25,9 +25,10 @@ WHERE
     menu.status = 1 AND rolemenu.status = 1
 order by menu.sort asc
 ";
-
-            return GetConn().Query<Menu>(sql, new { roleid = roleId, parentId = parentId });
-
+            using (var conn = GetConn())
+            {
+                return conn.Query<Menu>(sql, new { roleid = roleId, parentId = parentId });
+            }
         }
 
         public IEnumerable<Menu> GetByRole(int roleId)
@@ -44,7 +45,10 @@ WHERE
 order by menu.sort asc
 ";
 
-            return GetConn().Query<Menu>(sql, new { roleid = roleId });
+            using (var conn = GetConn())
+            {
+                return conn.Query<Menu>(sql, new { roleid = roleId });
+            }
 
         }
     }

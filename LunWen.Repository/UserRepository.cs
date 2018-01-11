@@ -19,8 +19,11 @@ namespace LunWen.Repository
             var sql = GetUserQuerySql(query);
             var para = GetUserQueryPara(query);
 
-            result.List = GetConn().Query<UserItem>(sql.SelectSql, para);
-            result.TotalCount = GetConn().ExecuteScalar<int>(sql.CountSql, para);
+            using (var conn = GetConn())
+            {
+                result.List = conn.Query<UserItem>(sql.SelectSql, para);
+                result.TotalCount = conn.ExecuteScalar<int>(sql.CountSql, para);
+            }
 
             return result;
         }
@@ -80,7 +83,10 @@ left join userrole
 on user.id = userrole.userid
 where user.status = 1 and userrole.status = 1 and usercode = @usercode
 ";
-            return GetConn().Query<UserInfo>(sql, new { usercode = userCode });
+            using (var conn = GetConn())
+            {
+                return conn.Query<UserInfo>(sql, new { usercode = userCode });
+            }
         }
     }
 }

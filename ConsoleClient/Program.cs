@@ -29,10 +29,13 @@ namespace ConsoleClient
             //GetAccessConfigData();
             //TestCache();
             //RegisterDOI();
-            RegisterMetadata();
+            //RegisterMetadata();
             //RequestImage();
             //ConvertList();
             //ComblineStr();
+
+            //TrimReplace();
+            TrimReplaceDir();
 
 
             Console.WriteLine();
@@ -391,6 +394,79 @@ ContactPerson, DataCollector, DataCurator, DataManager, Distributor, Editor, Hos
 
             System.IO.File.WriteAllText("d:/pwd.txt", builder.ToString());
             Process.Start("d:/pwd.txt");
+        }
+
+        private static void TrimReplace()
+        {
+            string text = @"
+var UserCode = $(""#UserCode"").val().trim();
+        var UserName = $(""#UserName"").val().trim();
+            var Password = $(""#Password"").val().trim();
+            var StudentID = $(""#StudentID"").val().trim();
+            var sex = $(""input[name=Sex]"").val();
+            var role = $(""input[name=Role]"").val();
+            var mobile = $(""#mobile"").val().trim();
+            var email = $(""#email"").val().trim();
+            var OrgID1 = $(""input[name=OrgID1]"").val();
+            var OrgID2 = $(""input[name=OrgID2]"").val();
+            var OrgID3 = $(""input[name=OrgID3]"").val();
+            var ID = $(""#ID"").val().trim();
+            var bankaccount = $(""#bankaccount"").val().trim();
+            ";
+
+            var trimIndex = text.IndexOf("trim()");
+            while (trimIndex > 0)
+            {
+                var JqueryIndex = trimIndex;
+                while (JqueryIndex > 0)
+                {
+                    if (text[JqueryIndex] == '$' && text[JqueryIndex + 1] == '(') //
+                    {
+                        var subStr = text.Substring(JqueryIndex, trimIndex - JqueryIndex + 6);
+                        var rightStr = text.Substring(JqueryIndex, trimIndex - JqueryIndex - 1);
+                        text = text.Replace(subStr, string.Format("$.trim({0})", rightStr));
+                        break;
+                    }
+                    JqueryIndex--;
+                }
+                trimIndex = text.IndexOf("trim()");
+            }
+
+            System.IO.File.WriteAllText("d:/trim.txt", text);
+            Process.Start("d:/trim.txt");
+        }
+
+        private static void TrimReplaceDir()
+        {
+            string dir = @"D:\shen\project\云版学位论文\Code\CNKI.ThesisMgmt.Web\CNKI.ThesisMgmt.Web.UI\Scripts";
+            var files = Directory.GetFiles(dir, "*.js", SearchOption.TopDirectoryOnly);
+            foreach (var file in files)
+            {
+                string text = File.ReadAllText(file);
+
+                var trimIndex = text.IndexOf("trim()");
+                if (trimIndex <= 0)
+                    continue;
+
+                while (trimIndex > 0)
+                {
+                    var JqueryIndex = trimIndex;
+                    while (JqueryIndex > 0)
+                    {
+                        if (text[JqueryIndex] == '$' && text[JqueryIndex + 1] == '(') //
+                        {
+                            var subStr = text.Substring(JqueryIndex, trimIndex - JqueryIndex + 6);
+                            var rightStr = text.Substring(JqueryIndex, trimIndex - JqueryIndex - 1);
+                            text = text.Replace(subStr, string.Format("$.trim({0})", rightStr));
+                            break;
+                        }
+                        JqueryIndex--;
+                    }
+                    trimIndex = text.IndexOf("trim()");
+                }
+
+                File.WriteAllText(file, text);
+            }                       
         }
 
         private static string GetRandomStr()

@@ -19,25 +19,31 @@ namespace LunWen.Repository.baseDAO
     {
         public int Insert(T model)
         {
-            StringBuilder builder = new StringBuilder();
-            builder.Append($"insert into {typeof(T).Name} (");
-            builder.Append(GetFieldsStr());
-            builder.Append(") values (");
-            builder.Append(GetFieldsWithParaStr());
-            builder.Append(" );");
-            builder.Append($"select max(id) from {typeof(T).Name};");
+            using (var conn = GetConn())
+            {
+                StringBuilder builder = new StringBuilder();
+                builder.Append($"insert into {typeof(T).Name} (");
+                builder.Append(GetFieldsStr());
+                builder.Append(") values (");
+                builder.Append(GetFieldsWithParaStr());
+                builder.Append(" );");
+                builder.Append($"select max(id) from {typeof(T).Name};");
 
-            string sql = builder.ToString();
-            var para = GetParas(model);
+                string sql = builder.ToString();
+                var para = GetParas(model);
 
-            return GetConn().ExecuteScalar<int>(sql, para);
+                return conn.ExecuteScalar<int>(sql, para);
+            }
         }
 
         //这个删除的缺点，没有记录是谁操作的。
         public void Delete(int id)
         {
-            string sql = string.Format("update {0} set status = 0 where id = @id", typeof(T).Name);
-            GetConn().Execute(sql, new { id = id });
+            using (var conn = GetConn())
+            {
+                string sql = string.Format("update {0} set status = 0 where id = @id", typeof(T).Name);
+                conn.Execute(sql, new { id = id });
+            }
         }
 
         public void DeleteAll(IEnumerable<int> ids)
@@ -52,51 +58,63 @@ namespace LunWen.Repository.baseDAO
 
         public void Update(T model)
         {
-            StringBuilder builder = new StringBuilder();
-            builder.Append($"update {typeof(T).Name} set ");
-            builder.Append(GetUpdateFields(model));
-            builder.Append(" where ");
-            builder.Append(" id = @id ");
+            using (var conn = GetConn())
+            {
+                StringBuilder builder = new StringBuilder();
+                builder.Append($"update {typeof(T).Name} set ");
+                builder.Append(GetUpdateFields(model));
+                builder.Append(" where ");
+                builder.Append(" id = @id ");
 
-            string sql = builder.ToString();
-            var para = GetParas(model);
+                string sql = builder.ToString();
+                var para = GetParas(model);
 
-            GetConn().Execute(sql, para);
+                conn.Execute(sql, para);
+            }
         }
 
         public void UpdateBy(Dictionary<string, string> destFields, Dictionary<string, string> whereFields)
         {
-            StringBuilder builder = new StringBuilder();
-            builder.Append($"update {typeof(T).Name} set ");
-            builder.Append(DicHelper.ToSql(destFields, DicSeprator.Comma));
-            builder.Append(" where ");
-            builder.Append(DicHelper.ToSqlWithPara(whereFields));
+            using (var conn = GetConn())
+            {
+                StringBuilder builder = new StringBuilder();
+                builder.Append($"update {typeof(T).Name} set ");
+                builder.Append(DicHelper.ToSql(destFields, DicSeprator.Comma));
+                builder.Append(" where ");
+                builder.Append(DicHelper.ToSqlWithPara(whereFields));
 
-            string sql = builder.ToString();
-            var para = GetParas(whereFields);
+                string sql = builder.ToString();
+                var para = GetParas(whereFields);
 
-            GetConn().Execute(sql, para);
+                conn.Execute(sql, para);
+            }
         }
 
         public T SelectBy(int Id)
         {
-            string sql = $"select * from {typeof(T).Name} where id = @id";
-            var model = GetConn().QueryFirstOrDefault<T>(sql, new { id = Id });
-            return model;
+            using (var conn = GetConn())
+            {
+                string sql = $"select * from {typeof(T).Name} where id = @id";
+                var model = conn.QueryFirstOrDefault<T>(sql, new { id = Id });
+                return model;
+            }
         }
 
         public IEnumerable<T> SelectBy(Dictionary<string, string> fields)
         {
-            StringBuilder builder = new StringBuilder();
-            builder.Append($"select * from {typeof(T).Name} ");
-            builder.Append(" where ");
-            builder.Append(DicHelper.ToSqlWithPara(fields));
+            using (var conn = GetConn())
+            {
+                StringBuilder builder = new StringBuilder();
+                builder.Append($"select * from {typeof(T).Name} ");
+                builder.Append(" where ");
+                builder.Append(DicHelper.ToSqlWithPara(fields));
 
-            string sql = builder.ToString();
-            var para = GetParas(fields);
+                string sql = builder.ToString();
+                var para = GetParas(fields);
 
-            IEnumerable<T> models = GetConn().Query<T>(sql, para);
-            return models;
+                IEnumerable<T> models = conn.Query<T>(sql, para);
+                return models;
+            }
         }
 
         public bool ExeTransaction(string sql)
@@ -115,6 +133,10 @@ namespace LunWen.Repository.baseDAO
                 LunWen.Infrastructure.Logger.Log(ex.Message);
                 tran.Rollback();
                 return false;
+            }
+            finally
+            {
+                conn.Dispose();
             }
         }
 
@@ -177,7 +199,7 @@ namespace LunWen.Repository.baseDAO
             return para;
         }
 
-        private static MySqlConnection _conn;
+        private MySqlConnection _conn;
 
         protected MySqlConnection GetConn()
         {
@@ -199,16 +221,22 @@ namespace LunWen.Repository.baseDAO
 
         public IEnumerable<Column> GetTableColumns(string tableName)
         {
-            string sql = $"select column_name as ColumnName,column_comment as ColumnComment,data_type as DataType from information_schema.columns where table_schema = '{GetConn().Database}' and table_name = '{tableName}'";
-            IEnumerable<Column> list = GetConn().Query<Column>(sql);
-            return list;
+            using (var conn = GetConn())
+            {
+                string sql = $"select column_name as ColumnName,column_comment as ColumnComment,data_type as DataType from information_schema.columns where table_schema = '{conn.Database}' and table_name = '{tableName}'";
+                IEnumerable<Column> list = conn.Query<Column>(sql);
+                return list;
+            }
         }
 
         public IEnumerable<Table> GetTables()
         {
-            string sql = $"select table_name as TableName,table_comment as TableComment from information_schema.tables where table_schema='{GetConn().Database}' and table_type='base table';";
-            IEnumerable<Table> list = GetConn().Query<Table>(sql);
-            return list;
+            using (var conn = GetConn())
+            {
+                string sql = $"select table_name as TableName,table_comment as TableComment from information_schema.tables where table_schema='{conn.Database}' and table_type='base table';";
+                IEnumerable<Table> list = conn.Query<Table>(sql);
+                return list;
+            }
         }
 
         #endregion
