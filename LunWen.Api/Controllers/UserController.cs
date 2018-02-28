@@ -19,14 +19,20 @@ namespace LunWen.Api.Controllers
             _userService = userService;
         }
 
-        public IHttpActionResult GetAll(string usercode)
+        public string Get()
+        {
+            return "用户相关接口";
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetInfo(string usercode)
         {
             try
             {
                 if (string.IsNullOrEmpty(usercode))
                     return Ok(new BaseApiResponse() { Status = 401, Msg = "userCode不能为空" });
 
-                var userInfo = _userService.GetUserByCode(usercode);
+                UserInfo userInfo = _userService.GetUserByCode(usercode);
                 return Ok(new BaseApiResponse() { Status = 200, Data = userInfo });
             }
             catch (Exception ex)

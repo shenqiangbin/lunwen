@@ -2,3 +2,8 @@
 
 webapi调用的post还没有调试通过。
 添加日期来验证是否过期。
+
+修改 路由 以可以有多个Get方法。
+
+提示：The request entity's media type 'multipart/form-data' is not supported for this resource
+原因：post请求注意content-type为：application/x-www-form-urlencoded
