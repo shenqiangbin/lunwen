@@ -23,7 +23,7 @@ namespace ConsoleClient
             //GetSomePassword();            
             //TestNetHelperPost();
             //string content = NetHelper.Get("http://www.baidu.com");
-            //TestApiInvoker();
+            TestApiInvoker();
             //PoJie();
             //QiongJu();
             //GetAccessConfigData();
@@ -35,7 +35,7 @@ namespace ConsoleClient
             //ComblineStr();
 
             //TrimReplace();
-            TrimReplaceDir();
+            //TrimReplaceDir();
 
 
             Console.WriteLine();
@@ -193,14 +193,21 @@ ContactPerson, DataCollector, DataCurator, DataManager, Distributor, Editor, Hos
 
         private static void TestApiInvoker()
         {
-            var response = AppNetHelper.Get<UserInfo>("http://localhost:8091/api/user/getAll?usercode=admin");
-            if (response.Status == 200)
-            {
+            //var response3 = AppNetHelper.Get<UserInfo>("http://localhost:8020/");
 
-            }
+            //if (response3.Status == 200)
+            //{
 
-            var response2 = AppNetHelper.Post<User>("http://localhost:8091/api/user/Add",
-                new User { UserCode = "tester", UserName = "testerName" });
+            //}
+
+            //var response = AppNetHelper.Get<UserInfo>("http://localhost:8020/api/user/getinfo?usercode=admin");
+            //if (response.Status == 200)
+            //{
+
+            //}
+
+            var response2 = AppNetHelper.Post<User>("http://localhost:8020/api/user/Add",
+                new User { UserCode = "tester", UserName = "testerName", Phone = "15201106921", Email = "123@qq.com" });
             if (response2.Status == 200)
             {
                 var user = response2.Data;
@@ -349,6 +356,8 @@ ContactPerson, DataCollector, DataCurator, DataManager, Distributor, Editor, Hos
         {
             public string UserCode { get; set; }
             public string UserName { get; set; }
+            public string Phone { get; set; }
+            public string Email { get; set; }
         }
 
 
@@ -466,7 +475,7 @@ var UserCode = $(""#UserCode"").val().trim();
                 }
 
                 File.WriteAllText(file, text);
-            }                       
+            }
         }
 
         private static string GetRandomStr()

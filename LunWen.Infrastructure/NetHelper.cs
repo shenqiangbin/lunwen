@@ -86,7 +86,7 @@ namespace LunWen.Infrastructure
             var time = DateTime.Now.Ticks.ToString();
 
             List<string> para = new List<string>();
-            string query = url.Substring(url.IndexOf("?"));
+            string query = url.Substring(url.IndexOf("?")+1);
             foreach (var item in query.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 var keyvalue = item.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);

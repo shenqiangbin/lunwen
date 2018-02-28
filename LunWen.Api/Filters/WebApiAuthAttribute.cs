@@ -59,6 +59,11 @@ namespace LunWen.Api.Filters
                 }
             }
 
+            if(string.IsNullOrEmpty(sign) || string.IsNullOrEmpty(appKey) || string.IsNullOrEmpty(time))
+            {
+                return false;
+            }
+
             var postTime = new DateTime(Convert.ToInt64(time));
             if ((DateTime.Now - postTime).TotalMinutes >= 3)
             {                
@@ -93,8 +98,10 @@ namespace LunWen.Api.Filters
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
             base.HandleUnauthorizedRequest(actionContext);
-            //actionContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-            //actionContext.Response.Content = new StringContent(JsonHelper.SerializeObject(new { status = 401, msg = "未授权"}));
+            actionContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+
+            string msg = JsonHelper.SerializeObject(new BaseApiResponse() { Status = 403, Msg = "无权访问" });
+            actionContext.Response.Content = new StringContent(msg);
         }
     }
 }
